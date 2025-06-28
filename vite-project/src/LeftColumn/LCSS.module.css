@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+ 
+
+body{
+    background-color: #f6faff;
+}
+.LeftColumn{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-color: white;
+    width: 210px;
+    height:  95vh;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    align-items: center;
+    font-family: sans-serif;
+}
+.LCTop{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #333c55;
+    font-size: 0.9rem;
+}
+
+.Box{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+     text-align: center;
+     background: linear-gradient(135deg, #9ab7c0, #d9c3ff, #bfe2ff);
+     box-shadow: 0 4px 15px rgba(180, 180, 255, 0.3);
+     width:90%;
+     min-height:105px;
+     border-radius: 8px;
+     padding: 5px;
+}
+
+.checkIcon,.falseIcon{
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.Balance{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.Balance div{
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.Balance span{
+    font-size: 0.9rem;
+}
+
+.Balance,.Box{
+    color: #3d4667;
+}
+
+.checkIcon,.Inc{
+    color: rgba(0, 128, 0, 0.568);
+}
+.falseIcon,.Dec{
+    color: red;
+}
+
+.Nav{
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #666d7c;
+    width: 90%;
+}
+
+.Market{
+    display: flex;
+    gap: 15px;
+    cursor: pointer;
+}
+
+ 
+.Active{
+color: white;
+background: linear-gradient(to right, #3c8eff, #2b7bfb, #1051d3be);
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+width: 100%;
+padding: 10px 10px;
+border-radius: 3px;
+}
+
+.Upqrade{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow:
+    0 0 12px #d9c3ff,
+    0 0 24px #bfe2ff,
+    0 4px 30px rgba(154, 183, 192, 0.5);
+    width:  90%;
+    padding: 5px 10px;
+    color: #272f46;
+    margin-top: auto;
+    margin-bottom: 40px;
+    
+}
+
+.Upqrade div>div{
+    font-size: 0.7rem;
+    margin-bottom: 3px;
+}
+
+ 
+
+
+
+ 
+

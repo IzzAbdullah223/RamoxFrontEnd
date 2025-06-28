@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.PageContainer{
+    display: flex;
+    padding: 15px 0px;
+    gap:  40px;
+}
+
+.MiddleContent{
+    flex: 1;
+}

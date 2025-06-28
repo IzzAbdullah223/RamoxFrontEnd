@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.HeaderContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: sans-serif;
+    color: #435177;
+    margin-bottom: 40px;
+}
+
+.HeaderContainer h1{
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+
+.RightContainer{
+    display: flex;
+    gap: 15px;
+    margin-right: 10px;
+}
+
+
+
+ 

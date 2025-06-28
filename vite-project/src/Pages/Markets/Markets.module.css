@@ -1,0 +1,161 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.PageContainer{
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  padding-right: 10px;
+}
+
+.SignUp{
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 40px;
+background: linear-gradient(to right, 
+  #e6f8fd, #c7eaf2, #cbebf2, #d7f2f6, #c6e2f9, 
+  #a4cbfa, #88c4fd, #80bffe, #81c1fe, #6cb1fa);
+ border-radius: 20px;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+margin-bottom: 40px;
+}
+
+ 
+
+.SignBox{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    background-color: #3c7cdc;
+    padding: 10px  25px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.SignLeftSide{
+    color: #435177;
+}
+
+.Top5Container{
+  display: flex;
+
+}
+
+.Top5{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ border-radius: 15px;
+ width: 100%;
+ max-width: 400px;
+ padding: 30px 10px;
+ 
+}
+
+.TopName{
+  display: flex;
+ margin-left: 10px;
+  align-items: center;
+  gap: 20px;
+  color: #2a3b64;
+}
+
+.Icon{
+  background-color: #c4dfe93f;
+  padding: 4px;
+}
+
+.TopHeaders{
+  display: flex;
+  justify-content: space-between;
+   color: #2f343f;
+   font-size: 0.75rem;
+ 
+ 
+}
+
+
+
+.TopSides{
+  display: flex;
+   justify-content: space-between;
+}
+
+.TopLeft{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+}
+
+ 
+
+.Token{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 0.9rem;
+}
+
+.Token div:first-child{
+  color: #2d3c63e5;
+  font-weight: bold;
+}
+
+.Token>div>div{
+  color: #666d7cb0;
+}
+
+.TopRight{
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  
+}
+
+.Interact{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.Interact>div:first-child{
+  color: #2d3c63ec;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-left: auto;
+}
+
+.SevenContainer{
+  display: flex;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.Seven{
+background-color: #c4dfe93f;;
+color: #2d3c63;
+font-weight: bold;
+}
+
+.Inc{
+  color: #61af95;
+   
+ 
+}
+
+
+
+
+
+
+ 
+
