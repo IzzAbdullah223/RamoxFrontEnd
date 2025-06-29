@@ -43,7 +43,10 @@ margin-bottom: 40px;
 }
 
 .Top5Container{
-  display: flex;
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 45px;
 
 }
 
@@ -54,8 +57,8 @@ margin-bottom: 40px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
  border-radius: 15px;
  width: 100%;
- max-width: 400px;
- padding: 30px 10px 15px 10px;
+ max-width: 375px;
+ padding: 30px 15px 15px 15px;
  
 }
 
@@ -76,7 +79,7 @@ margin-bottom: 40px;
 .TopHeaders{
   display: flex;
   justify-content: space-between;
-   color: #2f343f;
+   color: #1c2536d3;
    font-size: 0.75rem;
  margin-bottom: 10px;
 }
@@ -148,9 +151,95 @@ font-weight: bold;
 
 .Inc{
   color: #61af95;
-   
+}
+
+.AllTokensContainer{
+  background-color: white;
+}
+
+.AllTokensTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.AllTokensTop h2{
+  color: #2a3b64;
+}
+
+
+
+.AllTokensRight{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 20PX;
+  flex: 1;
+}
+
+.SearchContainer{
+  display: flex;
+   align-items: center;
+  width: 100%;
+  max-width: 250px;
+  padding: 6px;
+  border-radius: 3px;
+  background-color:#e4ebf4;
+   color: #676f79;;
  
 }
+.SearchContainer input{
+    border: none;
+    outline: none;
+    flex: 1;
+    padding-left: 10px;
+    background-color: #e4ebf4;
+     color: #676f79;
+}
+
+.SearchContainer input::placeholder{
+   color: #676f79;
+}
+
+.ColumnContainer,.FilterContainer{
+  background-color:#e4ebf4;
+  color: #676f79;;
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+  padding-left: 18px;
+  padding: 5PX;
+  border-radius: 3px;
+}
+
+.AllTokensSecond{
+  display: flex;
+  justify-content: space-between;
+   color: #162342;
+   font-weight: 550;
+   font-size: 0.8rem;
+}
+
+.AllTokensSecond  svg:first-child{
+  color: rgb(42, 136, 212);
+  font-size: 1.2rem;
+}
+
+.SecondRowContainer{
+  display: flex;
+  align-items: center;
+}
+
+.AllTokensThird svg{
+   color: rgb(42, 136, 212);
+   font-size: 1.2rem;
+  
+}
+
+ 
+ 
+
+ 
 
 
 
