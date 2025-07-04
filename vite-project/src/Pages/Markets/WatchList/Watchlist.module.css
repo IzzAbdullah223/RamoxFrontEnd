@@ -1,0 +1,165 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.PageContainer{
+font-family: sans-serif;
+}
+
+ 
+
+.Top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1e3568;;
+}
+
+ 
+.RightSide{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 20px;
+}
+
+.AllBots{
+    display: flex;
+    align-items: center;
+    color: #03184d;
+    cursor: pointer;
+}
+
+.AddStrategy{
+    background-color: rgb(0, 110, 255);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    cursor: pointer;   
+}
+
+
+.BotContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: white;
+}
+
+.BotContainer h3{
+     color: #293f72;
+}
+
+.BotItemsContainer{
+    display: flex;
+     justify-content: space-around;
+    
+}
+
+.BotFirst{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.BotTop{
+    display: flex;
+    align-items: center;
+    color: #1b2d58;
+}
+
+.RightImage{
+    margin-right: 3px;
+}
+
+.Date{
+    color: #676f79;
+    margin-bottom: 15px;
+}
+
+.BotSecond{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #bdc6d0;
+}
+
+.BotSecond div:last-child{
+color: #676e85;
+}
+
+.BotThird{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.PercentageChart{
+    display: flex;
+    align-items: c;
+    gap: 10px;
+ 
+}
+
+.BotFourth{
+   
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.Status{
+    margin-top: 10px;
+  
+}
+
+.GainGreenThing {
+  font-weight: bold;
+  color: #3fc174;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.PercentageChart {
+  font-weight: bold;
+  color: #f55c47;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.MiniChart {
+  width: 60px;
+  height: 20px;
+}
+
+.GreenBarContainer {
+  width: 100px;
+  height: 8px;
+  background-color: #e0e0e0;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 5px 0;
+}
+
+.GreenRatio {
+  background-color: #3fc174;
+  height: 100%;
+}
+
+.RedRatio {
+  background-color: #f55c47;
+  height: 100%;
+}
+
+.ChartContainer {
+  margin-top: 8px;
+  width: 100px;
+  height: 30px;
+}

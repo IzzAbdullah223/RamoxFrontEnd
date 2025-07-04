@@ -7,6 +7,7 @@ import { CiWallet } from "react-icons/ci";
 import { GoTag } from "react-icons/go";
 import { MdPeopleOutline } from "react-icons/md";
 import { CiHeart } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 import { useState } from 'react'
 import  LCSS from './LCSS.module.css'
@@ -35,39 +36,42 @@ function LeftColumn(){
                 <div>Total Balance</div>
                 <h3>$15,453.05 <span className={percentage? LCSS.Inc: LCSS.Dec}> +9.34%</span></h3>
             </div>
-            <div className={LCSS.Nav}>
+<div className={LCSS.Nav}>
+  <Link to="/markets" className={`${LCSS.Market} ${LCSS.Active}`}>
+    <HiChartBar />
+    <div>Markets</div>
+  </Link>
 
-                <div className={`${LCSS.Market} ${LCSS.Active}`}>
-                    <HiChartBar />
-                    <div>Markets</div>
-                </div>
+  <Link to="/watchlist" className={LCSS.Market}>
+    <IoEyeOutline/>
+    <div>Watchlist</div>
+  </Link>
 
-                <div className={LCSS.Market}>
-                    <IoEyeOutline/>
-                    <div>Watchlist</div>
-                </div>   
-                <div className={LCSS.Market}>
-                    <RiRobot2Line/>
-                    <div>AI Trading Bot</div>
-                </div>   
-                <div className={LCSS.Market}>
-                    <CiWallet/>
-                    <div>Wallet</div>
-                </div>   
-                <div className={LCSS.Market}>
-                    <GoTag />
-                    <div>Guides</div>
-                </div>   
-                <div className={LCSS.Market}>
-                    <MdPeopleOutline />
-                    <div>Community</div>
-                </div>   
-                <div className={LCSS.Market}>
-                    <CiHeart/>
-                    <div>Support</div>
-                </div>   
-                                                 
-            </div>
+  <Link to="/bot" className={LCSS.Market}>
+    <RiRobot2Line/>
+    <div>AI Trading Bot</div>
+  </Link>
+
+  <Link to="/wallet" className={LCSS.Market}>
+    <CiWallet/>
+    <div>Wallet</div>
+  </Link>
+
+  <Link to="/guides" className={LCSS.Market}>
+    <GoTag />
+    <div>Guides</div>
+  </Link>
+
+  <Link to="/community" className={LCSS.Market}>
+    <MdPeopleOutline />
+    <div>Community</div>
+  </Link>
+
+  <Link to="/support" className={LCSS.Market}>
+    <CiHeart/>
+    <div>Support</div>
+  </Link>
+</div>
             <div className={LCSS.Upqrade}>
                 <div>
                     <div>UPQRADE TO</div>
