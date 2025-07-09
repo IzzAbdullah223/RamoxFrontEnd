@@ -1,20 +1,35 @@
 import MCSS from './Markets.module.css'
-import { GoLinkExternal } from "react-icons/go";
+import { GoLinkExternal, GoTriangleDown } from "react-icons/go";
 import { BsPeopleFill, BsFillLightningChargeFill } from "react-icons/bs";
 import { LuRows2 } from "react-icons/lu";
 import { IoSearch } from "react-icons/io5";
 import { HiMiniBarsArrowDown } from "react-icons/hi2";
-import { TbFileDescription,TbStar,TbStarFilled } from "react-icons/tb";
-import { GoTriangleDown } from "react-icons/go";
+import { TbFileDescription, TbStar, TbStarFilled } from "react-icons/tb";
 import { useEffect, useState } from 'react';
 import BitCoinImage from '../../BitcoinImage.png'; 
 import { FaDiscord, FaTwitter } from "react-icons/fa";
- 
-type Token = {
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement
+);
+
+interface Token {
   id: number;
   name: string;
   symbol: string;
   circulating_supply: number;
+  price_data?: { price: number }[];
   quote: {
     USD: {
       price: number;
@@ -26,12 +41,24 @@ type Token = {
   };
 };
 
+interface SocialData {
+  followers: number;
+  change24h: number;
+  isPositive: boolean;
+}
+
 function Markets() {
   const [topVolume, setTopVolume] = useState<Token[]>([]);
   const [topGainers, setTopGainers] = useState<Token[]>([]);
   const [topLosers, setTopLosers] = useState<Token[]>([]);
   const [allTokens, setAllTokens] = useState<Token[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const generatePriceData = (currentPrice: number): { price: number }[] => {
+    return Array.from({ length: 24 }, (_, i) => ({
+      price: currentPrice * (0.95 + Math.random() * 0.1)
+    }));
+  };
 
   useEffect(() => {
     const fetchTokens = async () => {
@@ -40,34 +67,30 @@ function Markets() {
         const data = await response.json();
 
         if (data && data.data && Array.isArray(data.data)) {
-          const tokens = data.data;
+          const tokens: Token[] = data.data.map((token: any) => ({
+            ...token,
+            price_data: generatePriceData(token.quote.USD.price)
+          }));
 
-          const topVolume = [...tokens]
-            .sort((a, b) => b.quote.USD.volume_24h - a.quote.USD.volume_24h)
-            .slice(0, 5);
+          setTopVolume([...tokens]
+            .sort((a: Token, b: Token) => b.quote.USD.volume_24h - a.quote.USD.volume_24h)
+            .slice(0, 5));
 
-          const gainers = [...tokens]
-            .filter(token => token.quote.USD.percent_change_24h > 0)
-            .sort((a, b) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h);
+          setTopGainers([...tokens]
+            .filter((token: Token) => token.quote.USD.percent_change_24h > 0)
+            .sort((a: Token, b: Token) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h)
+            .slice(0, 5));
 
-          const topGainers = gainers.slice(0, 5);
+          setTopLosers([...tokens]
+            .filter((token: Token) => token.quote.USD.percent_change_24h < 0)
+            .sort((a: Token, b: Token) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h)
+            .slice(0, 5));
 
-          const topLosers = [...tokens]
-            .filter(token => token.quote.USD.percent_change_24h < 0)
-            .sort((a, b) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h)
-            .slice(0, 5);
+          setAllTokens([...tokens]
+            .sort((a: Token, b: Token) => b.quote.USD.market_cap - a.quote.USD.market_cap)
+            .slice(0, 10));
 
-          const allTokens = [...tokens]
-            .sort((a, b) => b.quote.USD.market_cap - a.quote.USD.market_cap)
-            .slice(0, 10);
-
-          setTopVolume(topVolume);
-          setTopGainers(topGainers);
-          setTopLosers(topLosers);
-          setAllTokens(allTokens);
           setLoading(false);
-        } else {
-          console.error('Unexpected API structure:', data);
         }
       } catch (error) {
         console.error('Fetch error:', error);
@@ -77,6 +100,34 @@ function Markets() {
 
     fetchTokens();
   }, []);
+
+  const MiniChart = ({ prices }: { prices: { price: number }[] }) => {
+    const isUp = prices[prices.length - 1].price > prices[0].price;
+    
+    return (
+      <div className={MCSS.ChartContainer}>
+        <Line
+          data={{
+            labels: prices.map(() => ''),
+            datasets: [{
+              data: prices.map(p => p.price),
+              borderColor: isUp ? '#61af95' : '#ea3943',
+              borderWidth: 2,
+              tension: 0.4,
+              fill: false
+            }]
+          }}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { x: { display: false }, y: { display: false } },
+            plugins: { legend: { display: false } },
+            elements: { point: { radius: 0 } }
+          }}
+        />
+      </div>
+    );
+  };
 
   const formatNumber = (num: number): string => {
     if (num >= 1e12) return `$${(num / 1e12).toFixed(2)}T`;
@@ -93,7 +144,7 @@ function Markets() {
     return `${supply.toFixed(2)} ${symbol}`;
   };
 
-  const getRandomSocialData = () => {
+  const getRandomSocialData = (): SocialData => {
     const followers = Math.floor(Math.random() * 50000) + 5000;
     const change24h = (Math.random() * 20 - 10).toFixed(2);
     return {
@@ -120,7 +171,6 @@ function Markets() {
       </div>
 
       <div className={MCSS.Top5Container}>
-        {/* TOP 5 VOLUME */}
         <div className={MCSS.Top5}>
           <div className={MCSS.TopName}>
             <div className={MCSS.Icon}><LuRows2 /></div>
@@ -162,7 +212,6 @@ function Markets() {
           </div>
         </div>
 
-        {/* TOP 5 GAINERS */}
         <div className={MCSS.Top5}>
           <div className={MCSS.TopName}>
             <div className={MCSS.Icon}><BsFillLightningChargeFill /></div>
@@ -200,7 +249,6 @@ function Markets() {
           </div>
         </div>
 
-        {/* TOP 5 LOSERS */}
         <div className={MCSS.Top5}>
           <div className={MCSS.TopName}>
             <div className={MCSS.Icon}><BsPeopleFill /></div>
@@ -262,7 +310,6 @@ function Markets() {
           <div className={MCSS.Loading}>Loading tokens...</div>
         ) : (
           <div className={MCSS.AllTokensList}>
-            {/* Header Row */}
             <div className={MCSS.AllTokensHeader}>
               <div className={MCSS.StarHeader}>
                 <TbStarFilled/>
@@ -287,13 +334,16 @@ function Markets() {
                 <h5>Social Following</h5>
                 <GoTriangleDown />
               </div>
+              <div className={MCSS.ChartHeader}>
+                <h5>24h Curve</h5>
+                <GoTriangleDown />
+              </div>
               <div className={MCSS.CirculatingHeader}>
                 <h5>Circulating Supply</h5>
                 <GoTriangleDown />
               </div>
             </div>
 
-            {/* Token Rows */}
             {allTokens.map((token) => {
               const discordData = getRandomSocialData();
               const twitterData = getRandomSocialData();
@@ -384,6 +434,10 @@ function Markets() {
                     </div>
                   </div>
 
+                  <div className={MCSS.ChartContainer}>
+                    {token.price_data && <MiniChart prices={token.price_data} />}
+                  </div>
+
                   <div className={MCSS.CirculatingContainer}>
                     <div className={MCSS.PriceBelow}>
                       <h5>{formatSupply(token.circulating_supply, token.symbol)}</h5>
@@ -407,4 +461,4 @@ function Markets() {
   );
 }
 
-export default Markets; 
+export default Markets;

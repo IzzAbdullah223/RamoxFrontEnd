@@ -433,6 +433,20 @@
     border-radius: 3px;
 }
 
+.ChartHeader {
+    width: 140px;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ChartContainer {
+    width: 140px;
+    min-width: 140px;
+    height: 50px;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
     .AllTokensHeader, .AllTokensSecond {
