@@ -8,8 +8,7 @@ import { TbFileDescription,TbStar,TbStarFilled } from "react-icons/tb";
 import { GoTriangleDown } from "react-icons/go";
 import { useEffect, useState } from 'react';
 import BitCoinImage from '../../BitcoinImage.png'; 
-import DiscordImage from '../../Discord.SVG.svg'
-import TwitterImage from '../../Twitter.SVG.svg'
+import { FaDiscord, FaTwitter } from "react-icons/fa";
 
 type Token = {
   id: number;
@@ -20,6 +19,7 @@ type Token = {
     USD: {
       price: number;
       percent_change_24h: number;
+      percent_change_7d: number;
       volume_24h: number;
       market_cap: number;
     };
@@ -30,6 +30,8 @@ function Markets() {
   const [topVolume, setTopVolume] = useState<Token[]>([]);
   const [topGainers, setTopGainers] = useState<Token[]>([]);
   const [topLosers, setTopLosers] = useState<Token[]>([]);
+  const [allTokens, setAllTokens] = useState<Token[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTokens = async () => {
@@ -55,21 +57,51 @@ function Markets() {
             .sort((a, b) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h)
             .slice(0, 5);
 
-          console.log('Gainers found:', gainers.length);
+          const allTokens = [...tokens]
+            .sort((a, b) => b.quote.USD.market_cap - a.quote.USD.market_cap)
+            .slice(0, 10);
 
           setTopVolume(topVolume);
           setTopGainers(topGainers);
           setTopLosers(topLosers);
+          setAllTokens(allTokens);
+          setLoading(false);
         } else {
           console.error('Unexpected API structure:', data);
         }
       } catch (error) {
         console.error('Fetch error:', error);
+        setLoading(false);
       }
     };
 
     fetchTokens();
   }, []);
+
+  const formatNumber = (num: number): string => {
+    if (num >= 1e12) return `$${(num / 1e12).toFixed(2)}T`;
+    if (num >= 1e9) return `$${(num / 1e9).toFixed(2)}B`;
+    if (num >= 1e6) return `$${(num / 1e6).toFixed(2)}M`;
+    if (num >= 1e3) return `$${(num / 1e3).toFixed(2)}K`;
+    return `$${num.toFixed(2)}`;
+  };
+
+  const formatSupply = (supply: number, symbol: string): string => {
+    if (supply >= 1e9) return `${(supply / 1e9).toFixed(2)}B ${symbol}`;
+    if (supply >= 1e6) return `${(supply / 1e6).toFixed(2)}M ${symbol}`;
+    if (supply >= 1e3) return `${(supply / 1e3).toFixed(2)}K ${symbol}`;
+    return `${supply.toFixed(2)} ${symbol}`;
+  };
+
+  const getRandomSocialData = () => {
+    const followers = Math.floor(Math.random() * 50000) + 5000;
+    const change24h = (Math.random() * 20 - 10).toFixed(2);
+    return {
+      followers,
+      change24h: parseFloat(change24h),
+      isPositive: parseFloat(change24h) > 0
+    };
+  };
 
   return (
     <div className={MCSS.PageContainer}>
@@ -207,174 +239,172 @@ function Markets() {
         </div>
       </div>
 
+      <div className={MCSS.AllTokensContainer}>
+        <div className={MCSS.AllTokensTop}>
+          <h2>All Tokens</h2>
+          <div className={MCSS.AllTokensRight}> 
+            <div className={MCSS.SearchContainer}>
+              <input type='text' placeholder='Search by Token name or tag'></input>
+              <IoSearch></IoSearch>
+            </div>
+            <div className={MCSS.ColumnContainer}>
+              <div>Columns</div>
+              <LuRows2></LuRows2>
+            </div>
+            <div className={MCSS.FilterContainer}>
+              <div>Filters</div>
+              <HiMiniBarsArrowDown></HiMiniBarsArrowDown>
+            </div>
+          </div>
+        </div>
 
-            <div className={MCSS.AllTokensContainer}>
-                <div className={MCSS.AllTokensTop}>
-                    <h2>All Tokens</h2>
-                    <div className={MCSS.AllTokensRight}> 
-                        <div className={MCSS.SearchContainer}>
-                             <input type='text' placeholder='Search by Token name or tag'></input>
-                         <IoSearch></IoSearch>
-                        </div>
-
-                        <div className={MCSS.ColumnContainer}>
-                            <div>Columns</div>
-                            <LuRows2></LuRows2>
-                        </div>
-
-                        <div className={MCSS.FilterContainer}>
-                            <div>Filters</div>
-                            <HiMiniBarsArrowDown></HiMiniBarsArrowDown>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={MCSS.AllTokensSecond}>
-                    <div className={MCSS.StarContainer}>
-                        <TbStarFilled/>
-                        <div>
-                            <TbStar />
-                            <TbFileDescription/>
-                        </div>
-                    </div>
-
-                    <div className={MCSS.TokenContainer}>
-                         <div className={MCSS.TokenTop}>
-                            <h5>Token</h5>
-                            <GoTriangleDown></GoTriangleDown>
-                         </div>
-                         <div className={MCSS.TokenBelow}>
-                             <img src={BitCoinImage}></img>
-                             <div>
-                                <div>Bitcoin</div>
-                                <div>BTC</div>
-                             </div>
-                         </div>
-                    </div>
-
-                    <div className={MCSS.PriceContainer}>
-                        <div className={MCSS.TokenTop}>
-                            <h5>Price</h5>
-                            <GoTriangleDown></GoTriangleDown>
-                         </div>
-                         <div className={MCSS.PriceBelow}>
-                            <h5>$29,025.99</h5>
-                            <div className={MCSS.Prices}>
-                                <div className={MCSS.Top24}>24h</div>
-                                <div className={MCSS.Dec}>-2.39%</div>
-                                <div className={MCSS.Top24}>7d</div>
-                                <div className={MCSS.Inc}>+1.15%</div>
-                            </div>
-                         </div>
-                    </div>
-
-                    <div className={MCSS.MarketContainer}>
-                        <div className={MCSS.TokenTop}>
-                            <h5>Market Cap</h5>
-                            <GoTriangleDown></GoTriangleDown>
-                        </div>
-                        <div className={MCSS.MarketBelow}>
-                            <h5>$561.87B</h5>
-                        </div>
-                    </div>
-
-                    <div className={MCSS.VolumeContainer}>
-                        <div className={MCSS.TokenTop}>
-                            <h5>Volume</h5>
-                            <GoTriangleDown></GoTriangleDown>
-                        </div>
-                         <div className={MCSS.PriceBelow}>
-                            <h5>$29,025.99</h5>
-                            <div className={MCSS.Prices}>
-                                <div className={MCSS.Top24}>24h</div>
-                                <div className={MCSS.Inc}>+1.15%</div>
-                            </div>
-                         </div>
-                    </div>
-                    
-                    <div className={MCSS.SocialContainer}>
-                        <div className={MCSS.TokenTop}>
-                            <h5>Soical Following</h5>
-                            <GoTriangleDown></GoTriangleDown>
-                        </div>
-                        <div className={MCSS.SocialSides}>
-
-                            <div className={MCSS.SocialLeft}>
-                             <img src={DiscordImage}></img>
-                            <div className={MCSS.SocialBelow}>
-                                    <h5>Discord</h5>
-                                    <div className={MCSS.Socials}>
-                                        <div className={MCSS.Top24}>24h</div>
-                                        <div className={MCSS.Inc}>+1.15%</div>
-                                    </div>
-                           </div>
-                            </div>
-
-                            <div className={MCSS.SocialRight}>
-                             <img src={TwitterImage}></img>
-                            <div className={MCSS.SocialBelow}>
-                                    <h5>Twitter</h5>
-                                    <div className={MCSS.Socials}>
-                                        <div className={MCSS.Top24}>24h</div>
-                                        <div className={MCSS.Inc}>+1.15%</div>
-                                    </div>
-                           </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={MCSS.SocialContainer}>
-                        <div className={MCSS.TokenTop}>
-                            <h5>Soical Interaction</h5>
-                            <GoTriangleDown></GoTriangleDown>
-                        </div>
-                        <div className={MCSS.SocialSides}>
-
-                            <div className={MCSS.SocialLeft}>
-                             <img src={DiscordImage}></img>
-                            <div className={MCSS.SocialBelow}>
-                                    <h5>25.75k</h5>
-                                    <div className={MCSS.Socials}>
-                                        <div className={MCSS.Top24}>24h</div>
-                                        <div className={MCSS.Dec}>-29.24%</div>
-                                    </div>
-                           </div>
-                            </div>
-
-                            <div className={MCSS.SocialRight}>
-                             <img src={TwitterImage}></img>
-                            <div className={MCSS.SocialBelow}>
-                                    <h5>12.65K</h5>
-                                    <div className={MCSS.Socials}>
-                                        <div className={MCSS.Top24}>24h</div>
-                                        <div className={MCSS.Dec}>-46.12%</div>
-                                    </div>
-                           </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={MCSS.CirculatingContainer}>
-                        <div className={MCSS.TokenTop}>
-                            <h5>Circulating Supply</h5>
-                            <GoTriangleDown></GoTriangleDown>
-                        </div>
-                         <div className={MCSS.PriceBelow}>
-                            <h5>19.36M BTC</h5>
-                            <div className={MCSS.CirculatingBar}>
- 
-                            </div>
-                         </div>
-                        
-                    </div>
-
-                </div>
-
-                </div>
-            
+        {loading ? (
+          <div className={MCSS.Loading}>Loading tokens...</div>
+        ) : (
+          <div className={MCSS.AllTokensList}>
+            {/* Header Row */}
+            <div className={MCSS.AllTokensHeader}>
+              <div className={MCSS.StarHeader}>
+                <TbStarFilled/>
+              </div>
+              <div className={MCSS.TokenHeader}>
+                <h5>Token</h5>
+                <GoTriangleDown />
+              </div>
+              <div className={MCSS.PriceHeader}>
+                <h5>Price</h5>
+                <GoTriangleDown />
+              </div>
+              <div className={MCSS.MarketHeader}>
+                <h5>Market Cap</h5>
+                <GoTriangleDown />
+              </div>
+              <div className={MCSS.VolumeHeader}>
+                <h5>Volume</h5>
+                <GoTriangleDown />
+              </div>
+              <div className={MCSS.SocialHeader}>
+                <h5>Social Following</h5>
+                <GoTriangleDown />
+              </div>
+              <div className={MCSS.CirculatingHeader}>
+                <h5>Circulating Supply</h5>
+                <GoTriangleDown />
+              </div>
             </div>
 
+            {/* Token Rows */}
+            {allTokens.map((token) => {
+              const discordData = getRandomSocialData();
+              const twitterData = getRandomSocialData();
+              
+              return (
+                <div className={MCSS.AllTokensSecond} key={token.id}>
+                  <div className={MCSS.StarContainer}>
+                    <div>
+                      <TbStar />
+                      <TbFileDescription/>
+                    </div>
+                  </div>
+
+                  <div className={MCSS.TokenContainer}>
+                    <div className={MCSS.TokenBelow}>
+                      <img 
+                        src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${token.id}.png`} 
+                        alt={token.name}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = BitCoinImage;
+                        }}
+                      />
+                      <div>
+                        <div>{token.name}</div>
+                        <div>{token.symbol}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={MCSS.PriceContainer}>
+                    <div className={MCSS.PriceBelow}>
+                      <h5>${token.quote.USD.price.toFixed(2)}</h5>
+                      <div className={MCSS.Prices}>
+                        <div className={MCSS.Top24}>24h</div>
+                        <div className={token.quote.USD.percent_change_24h >= 0 ? MCSS.Inc : MCSS.Dec}>
+                          {token.quote.USD.percent_change_24h.toFixed(2)}%
+                        </div>
+                        <div className={MCSS.Top24}>7d</div>
+                        <div className={token.quote.USD.percent_change_7d >= 0 ? MCSS.Inc : MCSS.Dec}>
+                          {token.quote.USD.percent_change_7d?.toFixed(2) || '0.00'}%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={MCSS.MarketContainer}>
+                    <div className={MCSS.MarketBelow}>
+                      <h5>{formatNumber(token.quote.USD.market_cap)}</h5>
+                    </div>
+                  </div>
+
+                  <div className={MCSS.VolumeContainer}>
+                    <div className={MCSS.PriceBelow}>
+                      <h5>{formatNumber(token.quote.USD.volume_24h)}</h5>
+                      <div className={MCSS.Prices}>
+                        <div className={MCSS.Top24}>24h</div>
+                        <div className={MCSS.Inc}>+{(Math.random() * 20).toFixed(2)}%</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className={MCSS.SocialContainer}>
+                    <div className={MCSS.SocialSides}>
+                      <div className={MCSS.SocialLeft}>
+                        <FaDiscord size={20} color="#5865F2" />
+                        <div className={MCSS.SocialBelow}>
+                          <h5>{discordData.followers.toLocaleString()}</h5>
+                          <div className={MCSS.Socials}>
+                            <div className={MCSS.Top24}>24h</div>
+                            <div className={discordData.isPositive ? MCSS.Inc : MCSS.Dec}>
+                              {discordData.isPositive ? '+' : ''}{discordData.change24h}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className={MCSS.SocialRight}>
+                        <FaTwitter size={20} color="#1DA1F2" />
+                        <div className={MCSS.SocialBelow}>
+                          <h5>{twitterData.followers.toLocaleString()}</h5>
+                          <div className={MCSS.Socials}>
+                            <div className={MCSS.Top24}>24h</div>
+                            <div className={twitterData.isPositive ? MCSS.Inc : MCSS.Dec}>
+                              {twitterData.isPositive ? '+' : ''}{twitterData.change24h}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={MCSS.CirculatingContainer}>
+                    <div className={MCSS.PriceBelow}>
+                      <h5>{formatSupply(token.circulating_supply, token.symbol)}</h5>
+                      <div className={MCSS.CirculatingBar}>
+                        <div 
+                          className={MCSS.BarFill}
+                          style={{
+                            width: Math.min(100, (token.circulating_supply / (token.circulating_supply * 1.2)) * 100) + '%'
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
-export default Markets;
+export default Markets; 
