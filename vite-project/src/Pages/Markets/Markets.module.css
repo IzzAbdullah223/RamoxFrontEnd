@@ -1,389 +1,451 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.PageContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  font-family: sans-serif;
-  padding-right: 10px;
+.PageContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-family: sans-serif;
+    padding: 0 20px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
-.SignUp{
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 40px;
-background: linear-gradient(to right, 
-  #e6f8fd, #c7eaf2, #cbebf2, #d7f2f6, #c6e2f9, 
-  #a4cbfa, #88c4fd, #80bffe, #81c1fe, #6cb1fa);
- border-radius: 20px;
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-margin-bottom: 40px;
-}
-
- 
-
-.SignBox{
+/* ======= SignUp Section ======= */
+.SignUp {
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: space-between;
+    padding: 40px;
+    background: linear-gradient(to right, 
+        #e6f8fd, #c7eaf2, #cbebf2, #d7f2f6, #c6e2f9, 
+        #a4cbfa, #88c4fd, #80bffe, #81c1fe, #6cb1fa);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.SignBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: white;
     background-color: #3c7cdc;
-    padding: 10px  25px;
+    padding: 12px 28px;
+    border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 2px;
     cursor: pointer;
+    font-weight: 600;
 }
 
-.SignLeftSide{
+.SignLeftSide {
     color: #435177;
 }
-
-.Top5Container{
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-gap: 45px;
-
+.SignLeftSide h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
-.Top5{
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- border-radius: 15px;
- width: 100%;
- max-width: 375px;
- padding: 30px 15px 15px 15px;
- 
+/* ======= Top 5 Cards ======= */
+.Top5Container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
-.TopName{
-  display: flex;
- margin-left: 10px;
-  align-items: center;
-  gap: 20px;
-  color: #2a3b64;
-  margin-bottom: 25px;
+.Top5 {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 380px;
+    padding: 25px 20px;
 }
 
-.Icon{
-  background-color: #c4dfe93f;
-  padding: 4px;
+.TopName {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #2a3b64;
+    margin-bottom: 20px;
+}
+.TopName h2 {
+    font-size: 1.1rem;
 }
 
-.TopHeaders{
-  display: flex;
-  justify-content: space-between;
-   color: #1c2536d3;
-   font-size: 0.75rem;
- margin-bottom: 10px;
+.Icon {
+    background-color: #c4dfe93f;
+    padding: 6px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
 }
 
-
-
-.TopSides{
-  display: flex;
-   justify-content: space-between;
+.TopHeaders {
+    display: flex;
+    justify-content: space-between;
+    color: #1c2536d3;
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+    padding: 0 10px;
 }
 
-.TopLeft{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  
+.TopSides {
+    display: flex;
+    justify-content: space-between;
 }
 
- 
-
-.Token{
-  display: flex;
-  align-items: center;
-    gap: 25px;
-  font-size: 0.9rem;
+.TopLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 55%;
 }
 
-.Token img{
-  width: 40px;
-  border-radius: 50%;
+.Token {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.9rem;
+    padding: 0 10px;
+}
+.Token img {
+    width: 36px;
+    border-radius: 50%;
+}
+.Token div:first-child {
+    color: #2d3c63e5;
+    font-weight: bold;
+}
+.Token>div>div {
+    color: #666d7cb0;
+    font-size: 0.8rem;
 }
 
-.Token div:first-child{
-  color: #2d3c63e5;
-  font-weight: bold;
+.TopRight {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 45%;
 }
 
-.Token>div>div{
-  color: #666d7cb0;
+.Interact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 10px;
+    text-align: right;
+}
+.Interact>div:first-child {
+    color: #2d3c63ec;
+    font-weight: bold;
+    font-size: 0.85rem;
 }
 
-.TopRight{
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  
- 
+.SevenContainer {
+    display: flex;
+    gap: 8px;
+    font-size: 0.8rem;
+    justify-content: flex-end;
+    align-items: center;
 }
 
- 
-.Interact{
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.Top24 {
+    background-color: #aac7d128;
+    color: #0a2744bb;
+    font-weight: bold;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
 }
 
-.Interact>div:first-child{
-  color: #2d3c63ec;
-  font-weight: bold;
-  font-size: 0.85rem;
-  margin-left: auto;
- 
+.Inc {
+    color: #61af95;
+}
+.Dec {
+    color: #ea3943;
 }
 
-.SevenContainer{
-  display: flex;
-  gap: 10px;
-  font-size: 0.9rem;
+/* ======= All Tokens Table ======= */
+.AllTokensContainer {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    margin-bottom: 40px;
 }
 
-.Top24{
-background-color: #aac7d128;;
-color: #0a2744bb;
-font-weight: bold;
-font-size: 0.8rem;
+.AllTokensTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #e1e5eb;
+}
+.AllTokensTop h2 {
+    color: #2a3b64;
+    font-size: 1.3rem;
 }
 
- 
-
-
-.Inc{
-  color: #61af95;
+.AllTokensRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.Dec{
-  color: #ea3943;
-  margin-left: auto;
+.SearchContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 250px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: #e4ebf4;
+    color: #676f79;
 }
-
-.AllTokensContainer{
-  background-color: white;
-}
-
-.AllTokensTop{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.AllTokensTop h2{
-  color: #2a3b64;
-}
-
-
-
-.AllTokensRight{
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  gap: 20PX;
-  flex: 1;
-}
-
-.SearchContainer{
-  display: flex;
-   align-items: center;
-  width: 100%;
-  max-width: 250px;
-  padding: 6px;
-  border-radius: 3px;
-  background-color:#e4ebf4;
-   color: #676f79;;
- 
-}
-.SearchContainer input{
+.SearchContainer input {
     border: none;
     outline: none;
     flex: 1;
-    padding-left: 10px;
+    padding-left: 8px;
+    background-color: transparent;
+    color: #676f79;
+    font-size: 0.85rem;
+}
+
+.ColumnContainer, .FilterContainer {
     background-color: #e4ebf4;
-     color: #676f79;
+    color: #676f79;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-.SearchContainer input::placeholder{
-   color: #676f79;
+/* Table Headers */
+.AllTokensHeader {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #f8fafd;
+    border-bottom: 1px solid #e1e5eb;
+    gap: 30px;
+}
+.AllTokensHeader > div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.85rem;
 }
 
-.ColumnContainer,.FilterContainer{
-  background-color:#e4ebf4;
-  color: #676f79;;
-  display: flex;
-  gap: 10px;
-  font-size: 0.8rem;
-  padding-left: 18px;
-  padding: 5PX;
-  border-radius: 3px;
+/* Column Widths and Spacing */
+.StarHeader {
+    width: 80px;
+    min-width: 80px;
+    justify-content: center;
+}
+.TokenHeader {
+    width: 200px;
+    min-width: 200px;
+}
+.PriceHeader {
+    width: 180px;
+    min-width: 180px;
+}
+.MarketHeader {
+    width: 160px;
+    min-width: 160px;
+}
+.VolumeHeader {
+    width: 160px;
+    min-width: 160px;
+}
+.SocialHeader {
+    width: 220px;
+    min-width: 220px;
+}
+.CirculatingHeader {
+    width: 180px;
+    min-width: 180px;
 }
 
-.AllTokensSecond{
-  padding: 10px;
-  display: flex;
-  gap: 20px;
+/* Table Rows */
+.AllTokensList {
+    display: flex;
+    flex-direction: column;
 }
 
-.StarContainer{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
+.AllTokensSecond {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #f0f2f5;
+    gap: 30px;
+}
+.AllTokensSecond:hover {
+    background-color: #f8fafd;
 }
 
-.StarContainer svg:first-child{
-   color: rgb(21, 135, 201);
+/* Cell Alignment */
+.AllTokensSecond > div {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
-.StarContainer>div{
-display: flex;
-color: rgb(21, 135, 201);
-gap: 45px;
+.StarContainer {
+    width: 80px;
+    min-width: 80px;
+    justify-content: center;
+    gap: 15px;
+}
+.StarContainer svg {
+    cursor: pointer;
+}
+.StarContainer svg:first-child {
+    color: rgb(21, 135, 201);
+}
+.StarContainer>div {
+    display: flex;
+    color: rgb(21, 135, 201);
+    gap: 20px;
 }
 
-.TokenContainer{
-display: flex;
-flex-direction: column;
-margin-right: 50px;
-gap: 20px;
+.TokenContainer {
+    width: 200px;
+    min-width: 200px;
+}
+.TokenBelow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.TokenBelow img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+.TokenBelow>div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.TokenBelow>div>div:first-child {
+    font-weight: bold;
+    color: #2d3748;
+    font-size: 0.9rem;
+}
+.TokenBelow>div>div:last-child {
+    color: #718096;
+    font-size: 0.8rem;
 }
 
-.TokenTop{
-  display: flex;
-  align-items: center;
-  color: #293f72;
-  letter-spacing: 0.5px;
+.PriceContainer {
+    width: 180px;
+    min-width: 180px;
+}
+.PriceBelow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.PriceBelow h5 {
+    color: #2d3748;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+.Prices {
+    display: flex;
+    gap: 10px;
+    font-size: 0.8rem;
+    align-items: center;
 }
 
-.TokenBelow{
-  display: flex;
-  gap: 10px;
+.MarketContainer {
+    width: 160px;
+    min-width: 160px;
+}
+.MarketBelow {
+    color: #2d3748;
+    font-weight: bold;
+    font-size: 0.95rem;
 }
 
-.TokenBelow img{
-  width: 35px;
-  height: 35px;
+.VolumeContainer {
+    width: 160px;
+    min-width: 160px;
 }
 
-.TokenBelow>div{
-  display: flex;
-   flex-direction: column;
-  gap: 5px;
-  font-size: 0.9rem;
-  color: #04173f;
+.SocialContainer {
+    width: 220px;
+    min-width: 220px;
+}
+.SocialSides {
+    display: flex;
+    gap: 20px;
+}
+.SocialLeft, .SocialRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.SocialBelow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.SocialBelow h5 {
+    color: #2d3748;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.Socials {
+    display: flex;
+    gap: 6px;
+    font-size: 0.8rem;
+    align-items: center;
 }
 
-.TokenBelow>div>div:last-child{
-   color: #676f79;
+.CirculatingContainer {
+    width: 180px;
+    min-width: 180px;
+}
+.CirculatingBar {
+    width: 100%;
+    height: 6px;
+    background-color: #e2e8f0;
+    border-radius: 3px;
+    margin-top: 8px;
+}
+.BarFill {
+    height: 100%;
+    background-color: #4299e1;
+    border-radius: 3px;
 }
 
-
-.PriceContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-right: 40px;
-}
-
-.PriceBelow{
-display: flex;
-flex-direction: column;
-gap: 5px;
-}
-
-.PriceBelow h5{
-  color: #0a2744e7;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.Prices{
- display: flex;
- gap: 10px;
- font-size: 0.9rem;
-}
-
-.MarketContainer{
-display: flex;
-flex-direction: column;
-margin-right: 50px;
-gap: 20px;
-
-}
-
-.MarketBelow{
-  margin-top: 10px;
-  color: #0a2744e7;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.VolumeContainer{
-  display: flex;
-flex-direction: column;
-margin-right: 50px;
-gap: 20px;
-}
-
-.SocialContainer{
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-}
-
-.SocialSides{
-  display: flex;
-  gap: 10px;
-}
-
- 
-
-
-.SocialLeft,.SocialRight{
-display: flex;
-gap: 5px;
-}
-
-.SocialBelow{
-display: flex;
-flex-direction: column;
-gap: 5px;
-}
-
-.SocialBelow h5{
-  color: #0a2744e7;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.Socials{
- display: flex;
- gap: 10px;
- font-size: 0.9rem;
-}
-
-.SocialSides img{
-  width: 35px;
-}
-
-.CirculatingContainer{
-  margin-left: 35px;
-  display: flex;
-  flex-direction: column;
-  gap: 20PX;
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .AllTokensHeader, .AllTokensSecond {
+        gap: 20px;
+    }
+    .TokenHeader, .TokenContainer {
+        width: 160px;
+        min-width: 160px;
+    }
+    .SocialHeader, .SocialContainer {
+        width: 180px;
+        min-width: 180px;
+    }
 }
 
 

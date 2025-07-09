@@ -81,12 +81,31 @@ body{
     width: 90%;
 }
 
-.Market{
+.Market {
     display: flex;
     gap: 15px;
     cursor: pointer;
     text-decoration: none;
     color: inherit;
+    padding: 10px 10px;
+    border-radius: 3px;
+    transition: background 0.2s, color 0.2s;  /* Smooth hover */
+}
+
+.Market:hover {
+    background: rgba(0, 0, 0, 0.05);  /* light gray background */
+    color: #2b7bfb;  /* blue text */
+}
+
+.Active {
+    color: white;
+    background: linear-gradient(to right, #3c8eff, #2b7bfb, #1051d3be);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.Active:hover {
+    background: linear-gradient(to right, #3c8eff, #2b7bfb, #1051d3be);
+    color: white;
 }
 
  

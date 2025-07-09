@@ -1,194 +1,365 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
-.PageContainer{
-font-family: sans-serif;
-display: flex;
-flex-direction: column;
-gap: 40px;
+.PageContainer {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    background-color: #f5f7fa;
+    min-height: 100vh;
 }
 
- 
-
-.Top{
+.Top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #1e3568;;
+    color: #1e3568;
+    padding: 10px 0;
 }
 
- 
-.RightSide{
+.RightSide {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding-right: 20px;
+    gap: 15px;
 }
 
-.AllBots{
+.AllBots {
     display: flex;
     align-items: center;
     color: #03184d;
     cursor: pointer;
-}
-
-.AddStrategy{
-    background-color: rgb(0, 110, 255);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    cursor: pointer;   
-}
-
-.BotsContainer{
-    display: flex;
-    flex-direction: column;
-    padding-right: 20px;
-}
-
-.BotContainer{
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 6px;
     background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- 
+    border: 1px solid #e0e4eb;
+    position: relative;
 }
 
-.BotContainer h3{
-     color: #293f72;
+.AddStrategy {
+    background-color: #006eff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;   
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
 }
 
-.BotItemsContainer{
+.AddStrategy:hover {
+    background-color: #0059d6;
+    transform: translateY(-1px);
+}
+
+.BotDropdown {
+    position: absolute;
+    top: 120%;
+    right: 20px;
+    background: white;
+    border: 1px solid #e0e4eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    width: 280px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.BotDropdownItem {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f2f5;
     display: flex;
-     justify-content: space-between;
-    
+    justify-content: space-between;
 }
 
-.BotFirst{
+.BotDropdownItem:hover {
+    background-color: #f8f9fb;
+}
+
+.ActiveBot {
+    background-color: #f0f7ff !important;
+    font-weight: 500;
+}
+
+.BotPair {
+    color: #7a859e;
+    font-size: 0.9em;
+}
+
+.BotsContainer {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 20px;
 }
 
-.BotTop{
+.BotContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e8ebf0;
+}
+
+.BotHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.BotStatus {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.BotStatus[data-status="active"] {
+    background-color: #e4f7e8;
+    color: #3fc174;
+}
+
+.BotStatus[data-status="inactive"] {
+    background-color: #ffeceb;
+    color: #f55c47;
+}
+
+.BotItemsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.BotFirst, .BotSecond, .BotThird, .BotFourth, .BotFifth {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.BotTop {
     display: flex;
     align-items: center;
     color: #1b2d58;
+    gap: 6px;
+    font-weight: 500;
 }
 
-.RightImage{
-    margin-right: 3px;
+.BotTop img {
+    width: 20px;
+    height: 20px;
 }
 
-.Date{
-    color: #676f79;
-    margin-bottom: 15px;
+.RightImage {
+    margin-left: -5px;
 }
 
-.BotSecond{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    color: #bdc6d0;
-   
-}
-
-.BotSecond div:last-child{
-color: #676e85;
-}
-
-.BotThird{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    color: #bdc6d0;
-}
-
-.PercentageChart{
-    display: flex;
-    align-items: c;
-    gap: 10px;
- 
-}
-
-.BotFourth{
-    color: #bdc6d0;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    
-}
-
-.BotFifth{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.Status{
-    margin-top: 10px;
-  
-}
-
-.GainGreenThing {
-  font-weight: bold;
-  color: #3fc174;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.PercentageChart {
-  font-weight: bold;
-  color: #f55c47;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.MiniChart {
-  width: 60px;
-  height: 20px;
-}
-
-.GreenBarContainer {
-  width: 100px;
-  height: 8px;
-  background-color: #e0e0e0;
-  display: flex;
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 5px 0;
-}
-
-.GreenRatio {
-  background-color: #3fc174;
-  height: 100%;
-}
-
-.RedRatio {
-  background-color: #f55c47;
-  height: 100%;
+.Date {
+    color: #8a94a6;
+    font-size: 0.85em;
+    margin-bottom: 10px;
 }
 
 .ChartContainer {
-  margin-top: 8px;
-  width: 100px;
-  height: 30px;
+    margin-top: 8px;
+    width: 100%;
+    height: 40px;
 }
 
-.WorkingTime{
-    background-color: #c4dfe93f;
-    color: #131f3bbd;;
-    width: fit-content;
+.GreenBarContainer {
+    width: 100%;
+    height: 8px;
+    background-color: #f0f2f5;
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 5px 0;
+}
+
+.GreenRatio {
+    background-color: #3fc174;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.RedRatio {
+    background-color: #f55c47;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.TradeStats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+}
+
+.GreenStat {
+    color: #3fc174;
+}
+
+.RedStat {
+    color: #f55c47;
+}
+
+.TradeCount, .OrderCount {
+    font-weight: 500;
+    color: #293f72;
+    font-size: 1.1em;
+}
+
+.GainGreenThing {
     font-weight: bold;
- 
+    color: #3fc174;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+.PercentageChart {
+    font-weight: bold;
+    color: #f55c47;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+.MiniChart {
+    width: 60px;
+    height: 20px;
+}
+
+.WorkingTime {
+    background-color: #e4f0f7;
+    color: #1b2d58;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    width: fit-content;
+    font-size: 0.9em;
+}
+
+.Balance {
+    font-weight: 600;
+    color: #293f72;
+    font-size: 1.1em;
+}
+
+.BotActions {
+    display: flex;
+    gap: 8px;
+}
+
+.ActionButton {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #e0e4eb;
+    background-color: white;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.2s ease;
+}
+
+.ActionButton:hover {
+    background-color: #f8f9fb;
+}
+
+.StopButton {
+    background-color: #ffeceb;
+    color: #f55c47;
+    border-color: #ffd4d1;
+}
+
+.StopButton:hover {
+    background-color: #ffdfdd;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .BotItemsContainer {
+        flex-wrap: wrap;
+    }
+    
+    .BotFirst, .BotSecond, .BotThird, .BotFourth, .BotFifth {
+        min-width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .BotFirst, .BotSecond, .BotThird, .BotFourth, .BotFifth {
+        min-width: 100%;
+    }
+    
+    .Top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .RightSide {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Ensure dropdown appears above other content */
+.BotDropdown {
+  z-index: 1000;
+  /* other existing styles */
+}
+
+/* Style for the "All Strategies" dropdown item */
+.BotDropdownItem:first-child {
+  font-weight: 500;
+  border-bottom: 1px solid #e0e4eb;
+}
+
+/* Active state for buttons */
+.ActionButton:active {
+  transform: translateY(1px);
+}
+
+/* Disabled state for buttons */
+.ActionButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.StartButton {
+  background-color: #e4f7e8;
+  color: #3fc174;
+  border-color: #c0ebcf;
+}
+
+.StartButton:hover {
+  background-color: #d0f0da;
+}
+
+.StopButton {
+  background-color: #ffeceb;
+  color: #f55c47;
+  border-color: #ffd4d1;
+}
+
+.StopButton:hover {
+  background-color: #ffdfdd;
+}
+
+.BotDropdownItem:first-child {
+  font-weight: 500;
+  color: #006eff;
+  border-bottom: 1px solid #e0e4eb;
+  margin-bottom: 4px;
+  padding-bottom: 8px;
 }
