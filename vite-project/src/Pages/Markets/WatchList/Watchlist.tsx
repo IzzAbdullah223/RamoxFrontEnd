@@ -2,8 +2,6 @@ import WCSS from './Watchlist.module.css'
 import { GoTriangleDown } from "react-icons/go";
 import Ethernum from '../../../Etherneum.svg'
 import Tether from '../../../Tether.svg'
-import Bitcoin from '../../../BitcoinImage.png'
-import USDCCoin from '../../../usddc.svg'
 //@ts-ignore
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
@@ -23,22 +21,6 @@ const bots = [
     chartData: [5, 6, 7, 5, 9, 10, 8, 6, 5, 7],
     tradeRatio: { green: 30.6, red: 69.4 },
     icons: [Ethernum, Tether]
-  },
-  {
-    id: 2,
-    name: 'Bot 2',
-    pair: 'ETH/BTC',
-    date: '28 Apr 2023 | 02:45',
-    profitGained: 23.26,
-    percentGain: 13.45,
-    trades: 212,
-    workingTime: '1h 12m',
-    status: 'Active',
-    balance: '$1,224.31',
-    orders: 56,
-    chartData: [2, 3, 5, 4, 6, 7, 6, 5],
-    tradeRatio: { green: 52, red: 48 },
-    icons: [Ethernum, Bitcoin]
   },
 
 ];
@@ -117,7 +99,7 @@ function Watchlist() {
               {/* FOURTH COLUMN */}
               <div className={WCSS.BotFourth}>
                 <div>Working Time</div>
-                <div>{bot.workingTime}</div>
+                <div className={WCSS.WorkingTime}>{bot.workingTime}</div>
                 <div className={WCSS.Status}>Status</div>
                 <div>{bot.status}</div>
               </div>
@@ -125,9 +107,9 @@ function Watchlist() {
               {/* FIFTH COLUMN */}
               <div className={WCSS.BotFifth}>
                 <div>Total Balance</div>
-                <div>{bot.balance}</div>
+                <div className={WCSS.WorkingTime}>{bot.balance}</div>
                 <div className={WCSS.Status}>Orders</div>
-                <div>{bot.orders}</div>
+                <div className={WCSS.WorkingTime}>{bot.orders}</div>
               </div>
 
             </div>

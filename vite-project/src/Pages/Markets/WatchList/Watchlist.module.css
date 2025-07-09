@@ -7,6 +7,9 @@
 
 .PageContainer{
 font-family: sans-serif;
+display: flex;
+flex-direction: column;
+gap: 40px;
 }
 
  
@@ -42,12 +45,21 @@ font-family: sans-serif;
     cursor: pointer;   
 }
 
+.BotsContainer{
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+}
 
 .BotContainer{
     display: flex;
     flex-direction: column;
     gap: 30px;
     background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ 
 }
 
 .BotContainer h3{
@@ -56,7 +68,7 @@ font-family: sans-serif;
 
 .BotItemsContainer{
     display: flex;
-     justify-content: space-around;
+     justify-content: space-between;
     
 }
 
@@ -86,6 +98,7 @@ font-family: sans-serif;
     flex-direction: column;
     gap: 10px;
     color: #bdc6d0;
+   
 }
 
 .BotSecond div:last-child{
@@ -96,6 +109,7 @@ color: #676e85;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    color: #bdc6d0;
 }
 
 .PercentageChart{
@@ -106,7 +120,14 @@ color: #676e85;
 }
 
 .BotFourth{
-   
+    color: #bdc6d0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+
+.BotFifth{
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -162,4 +183,12 @@ color: #676e85;
   margin-top: 8px;
   width: 100px;
   height: 30px;
+}
+
+.WorkingTime{
+    background-color: #c4dfe93f;
+    color: #131f3bbd;;
+    width: fit-content;
+    font-weight: bold;
+ 
 }
