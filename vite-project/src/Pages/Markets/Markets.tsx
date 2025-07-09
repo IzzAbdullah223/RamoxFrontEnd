@@ -9,7 +9,7 @@ import { GoTriangleDown } from "react-icons/go";
 import { useEffect, useState } from 'react';
 import BitCoinImage from '../../BitcoinImage.png'; 
 import { FaDiscord, FaTwitter } from "react-icons/fa";
-
+ 
 type Token = {
   id: number;
   name: string;

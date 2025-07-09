@@ -20,12 +20,14 @@
     align-items: center;
     color: #1e3568;
     padding: 10px 0;
+    position: relative;
 }
 
 .RightSide {
     display: flex;
     align-items: center;
     gap: 15px;
+    position: relative;
 }
 
 .AllBots {
@@ -39,6 +41,7 @@
     background-color: white;
     border: 1px solid #e0e4eb;
     position: relative;
+    z-index: 1;
 }
 
 .AddStrategy {
@@ -59,16 +62,17 @@
 
 .BotDropdown {
     position: absolute;
-    top: 120%;
-    right: 20px;
+    top: 100%;
+    left: 0;
     background: white;
     border: 1px solid #e0e4eb;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 100;
+    z-index: 1000;
     width: 280px;
     max-height: 400px;
     overflow-y: auto;
+    margin-top: 5px;
 }
 
 .BotDropdownItem {
@@ -81,6 +85,13 @@
 
 .BotDropdownItem:hover {
     background-color: #f8f9fb;
+}
+
+.BotDropdownItem:first-child {
+    font-weight: 600;
+    color: #006eff;
+    background-color: #f0f7ff;
+    border-bottom: 1px solid #e0e4eb;
 }
 
 .ActiveBot {
@@ -275,6 +286,16 @@
     background-color: #f8f9fb;
 }
 
+.StartButton {
+    background-color: #e4f7e8;
+    color: #3fc174;
+    border-color: #c0ebcf;
+}
+
+.StartButton:hover {
+    background-color: #d0f0da;
+}
+
 .StopButton {
     background-color: #ffeceb;
     color: #f55c47;
@@ -285,7 +306,6 @@
     background-color: #ffdfdd;
 }
 
-/* Responsive adjustments */
 @media (max-width: 1200px) {
     .BotItemsContainer {
         flex-wrap: wrap;
@@ -311,55 +331,4 @@
         width: 100%;
         justify-content: space-between;
     }
-}
-
-/* Ensure dropdown appears above other content */
-.BotDropdown {
-  z-index: 1000;
-  /* other existing styles */
-}
-
-/* Style for the "All Strategies" dropdown item */
-.BotDropdownItem:first-child {
-  font-weight: 500;
-  border-bottom: 1px solid #e0e4eb;
-}
-
-/* Active state for buttons */
-.ActionButton:active {
-  transform: translateY(1px);
-}
-
-/* Disabled state for buttons */
-.ActionButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.StartButton {
-  background-color: #e4f7e8;
-  color: #3fc174;
-  border-color: #c0ebcf;
-}
-
-.StartButton:hover {
-  background-color: #d0f0da;
-}
-
-.StopButton {
-  background-color: #ffeceb;
-  color: #f55c47;
-  border-color: #ffd4d1;
-}
-
-.StopButton:hover {
-  background-color: #ffdfdd;
-}
-
-.BotDropdownItem:first-child {
-  font-weight: 500;
-  color: #006eff;
-  border-bottom: 1px solid #e0e4eb;
-  margin-bottom: 4px;
-  padding-bottom: 8px;
 }

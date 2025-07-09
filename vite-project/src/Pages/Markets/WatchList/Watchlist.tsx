@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import WCSS from './Watchlist.module.css';
 import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import Ethernum from '../../../Etherneum.svg';
@@ -28,37 +28,78 @@ type Bot = {
   icons: string[];
 };
 
+// Helper function to increment time
+const incrementTime = (timeStr: string): string => {
+  if (!timeStr.includes('d')) {
+    const [hours, minutes] = timeStr.split('h ').map(part => parseInt(part));
+    let newMins = minutes + 1;
+    let newHours = hours;
+    if (newMins >= 60) {
+      newMins = 0;
+      newHours += 1;
+    }
+    return `${newHours}h ${newMins.toString().padStart(2, '0')}m`;
+  } else {
+    const [days, rest] = timeStr.split('d ');
+    const [hours, minutes] = rest.split('h ').map(part => parseInt(part));
+    let newMins = minutes + 1;
+    let newHours = hours;
+    if (newMins >= 60) {
+      newMins = 0;
+      newHours += 1;
+    }
+    if (newHours >= 24) {
+      newHours = 0;
+      return `${parseInt(days) + 1}d ${newHours}h ${newMins.toString().padStart(2, '0')}m`;
+    }
+    return `${days}d ${newHours}h ${newMins.toString().padStart(2, '0')}m`;
+  }
+};
+
+// Initial bots data with realistic starting values
 const initialBots: Bot[] = [
   {
     id: 1,
     name: 'ETH Scalper',
     pair: 'ETH/USDT',
-    date: '27 Apr 2023 | 04:57',
-    profitGained: 34.12,
+    date: new Date().toLocaleDateString('en-GB', { 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    }).replace(',', ' |'),
+    profitGained: 342.18,
     percentGain: 14.56,
-    trades: 373,
-    workingTime: '5h 23m',
+    trades: 127,
+    workingTime: '2h 45m',
     status: 'Active',
     balance: '$4,308.12',
-    orders: 36,
-    chartData: [5, 6, 7, 5, 9, 10, 8, 6, 5, 7],
-    tradeRatio: { green: 30.6, red: 69.4 },
+    orders: 8,
+    chartData: [12, 14, 13, 15, 16, 15, 17, 16, 15, 16],
+    tradeRatio: { green: 68.3, red: 31.7 },
     icons: [Ethernum, Tether]
   },
   {
     id: 2,
     name: 'BTC Swing',
     pair: 'BTC/USDT',
-    date: '28 Apr 2023 | 12:30',
-    profitGained: 22.45,
+    date: new Date(Date.now() - 86400000).toLocaleDateString('en-GB', { 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    }).replace(',', ' |'),
+    profitGained: 892.41,
     percentGain: 8.91,
-    trades: 215,
-    workingTime: '12h 45m',
+    trades: 43,
+    workingTime: '1d 3h',
     status: 'Active',
-    balance: '$8,120.50',
-    orders: 42,
-    chartData: [8, 7, 6, 8, 9, 7, 8, 9, 10, 9],
-    tradeRatio: { green: 45.2, red: 54.8 },
+    balance: '$12,420.50',
+    orders: 5,
+    chartData: [42, 43, 44, 43, 45, 46, 45, 44, 45, 46],
+    tradeRatio: { green: 72.1, red: 27.9 },
     icons: [Ethernum, Tether]
   },
 ];
@@ -90,6 +131,48 @@ function Watchlist() {
   const [bots, setBots] = useState<Bot[]>(initialBots);
   const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
   const [showBotDropdown, setShowBotDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Simulate live data updates for active bots
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBots(prevBots => prevBots.map(bot => {
+        // Only update the first two bots when active
+        if ((bot.id === 1 || bot.id === 2) && bot.status === 'Active') {
+          const smallRandom = () => (Math.random() - 0.4) * (bot.id === 1 ? 1.2 : 0.8);
+          const newChartValue = bot.chartData[bot.chartData.length - 1] + smallRandom() * 2;
+          
+          return {
+            ...bot,
+            profitGained: Math.max(0, +(bot.profitGained + smallRandom()).toFixed(2)),
+            percentGain: +(bot.percentGain + smallRandom() * 0.1).toFixed(2),
+            trades: bot.trades + (Math.random() > 0.7 ? 1 : 0),
+            workingTime: incrementTime(bot.workingTime),
+            chartData: [...bot.chartData.slice(1), newChartValue],
+            orders: Math.max(0, bot.orders + (Math.random() > 0.8 ? 1 : (Math.random() > 0.9 ? -1 : 0))),
+            tradeRatio: {
+              green: Math.min(100, Math.max(0, bot.tradeRatio.green + (Math.random() > 0.5 ? 0.2 : -0.2))),
+              red: Math.min(100, Math.max(0, bot.tradeRatio.red + (Math.random() > 0.5 ? -0.2 : 0.2)))
+            }
+          };
+        }
+        return bot;
+      }));
+    }, 3000); // Update every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowBotDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const addNewBot = () => {
     const newBotId = bots.length > 0 ? Math.max(...bots.map(bot => bot.id)) + 1 : 1;
@@ -115,10 +198,6 @@ function Watchlist() {
     setShowBotDropdown(false);
   };
 
-  const toggleDropdown = () => {
-    setShowBotDropdown(!showBotDropdown);
-  };
-
   const toggleBotStatus = (botId: number) => {
     setBots(bots.map(bot => 
       bot.id === botId 
@@ -126,7 +205,7 @@ function Watchlist() {
         : bot
     ));
     
-    if (selectedBot && selectedBot.id === botId) {
+    if (selectedBot?.id === botId) {
       setSelectedBot({
         ...selectedBot,
         status: selectedBot.status === 'Active' ? 'Inactive' : 'Active'
@@ -135,16 +214,10 @@ function Watchlist() {
   };
 
   const handleEditBot = (botId: number) => {
-    // In a real app, this would open an edit modal
-    const newName = prompt('Enter new strategy name:', 
-      bots.find(bot => bot.id === botId)?.name || '');
-    
+    const newName = prompt('Edit strategy name:', bots.find(bot => bot.id === botId)?.name || '');
     if (newName) {
-      setBots(bots.map(bot => 
-        bot.id === botId ? { ...bot, name: newName } : bot
-      ));
-      
-      if (selectedBot && selectedBot.id === botId) {
+      setBots(bots.map(bot => bot.id === botId ? { ...bot, name: newName } : bot));
+      if (selectedBot?.id === botId) {
         setSelectedBot({ ...selectedBot, name: newName });
       }
     }
@@ -154,10 +227,10 @@ function Watchlist() {
     <div className={WCSS.PageContainer}>
       <div className={WCSS.Top}>
         <h3>AI Trading Strategies</h3>
-        <div className={WCSS.RightSide}>
+        <div className={WCSS.RightSide} ref={dropdownRef}>
           <div 
             className={WCSS.AllBots} 
-            onClick={toggleDropdown}
+            onClick={() => setShowBotDropdown(!showBotDropdown)}
           >
             <div>{selectedBot ? selectedBot.name : 'All Strategies'}</div>
             {showBotDropdown ? <GoTriangleUp /> : <GoTriangleDown />}
@@ -168,29 +241,29 @@ function Watchlist() {
           >
             <div>+ Add Strategy</div>
           </div>
+
+          {showBotDropdown && (
+            <div className={WCSS.BotDropdown}>
+              <div 
+                className={WCSS.BotDropdownItem}
+                onClick={() => handleBotSelect(null)}
+              >
+                All Strategies
+              </div>
+              {bots.map(bot => (
+                <div 
+                  key={bot.id} 
+                  className={`${WCSS.BotDropdownItem} ${selectedBot?.id === bot.id ? WCSS.ActiveBot : ''}`}
+                  onClick={() => handleBotSelect(bot)}
+                >
+                  {bot.name}
+                  <span className={WCSS.BotPair}>{bot.pair}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-
-      {showBotDropdown && (
-        <div className={WCSS.BotDropdown}>
-          <div 
-            className={WCSS.BotDropdownItem}
-            onClick={() => handleBotSelect(null)}
-          >
-            All Strategies
-          </div>
-          {bots.map(bot => (
-            <div 
-              key={bot.id} 
-              className={`${WCSS.BotDropdownItem} ${selectedBot?.id === bot.id ? WCSS.ActiveBot : ''}`}
-              onClick={() => handleBotSelect(bot)}
-            >
-              {bot.name}
-              <span className={WCSS.BotPair}>{bot.pair}</span>
-            </div>
-          ))}
-        </div>
-      )}
 
       <div className={WCSS.BotsContainer}>
         {(selectedBot ? [selectedBot] : bots).map(bot => (
@@ -202,7 +275,6 @@ function Watchlist() {
               </span>
             </div>
             <div className={WCSS.BotItemsContainer}>
-              {/* FIRST COLUMN */}
               <div className={WCSS.BotFirst}>
                 <div className={WCSS.BotTop}> 
                   <img src={bot.icons[0]} alt="left coin" />
@@ -217,7 +289,6 @@ function Watchlist() {
                 </div>
               </div>
 
-              {/* SECOND COLUMN */}
               <div className={WCSS.BotSecond}>
                 <div>Trade Ratio</div>
                 <div className={WCSS.GreenBarContainer}>
@@ -225,18 +296,17 @@ function Watchlist() {
                   <div className={WCSS.RedRatio} style={{ width: `${bot.tradeRatio.red}%` }}></div>
                 </div>
                 <div className={WCSS.TradeStats}>
-                  <span className={WCSS.GreenStat}>{bot.tradeRatio.green}% Win</span>
-                  <span className={WCSS.RedStat}>{bot.tradeRatio.red}% Loss</span>
+                  <span className={WCSS.GreenStat}>{bot.tradeRatio.green.toFixed(1)}% Win</span>
+                  <span className={WCSS.RedStat}>{bot.tradeRatio.red.toFixed(1)}% Loss</span>
                 </div>
                 <div>Total Trades</div>
                 <div className={WCSS.TradeCount}>{bot.trades}</div>
               </div>
 
-              {/* THIRD COLUMN */}
               <div className={WCSS.BotThird}>
                 <div>Profit Gained</div>
                 <div className={WCSS.GainGreenThing}>
-                  {bot.profitGained}%
+                  ${bot.profitGained.toFixed(2)}
                   <div className={WCSS.MiniChart}>
                     <Sparklines data={bot.chartData} width={60} height={20}>
                       <SparklinesLine color="#3fc174" style={{ fill: "#e4f7ef", strokeWidth: 2 }} />
@@ -246,7 +316,7 @@ function Watchlist() {
 
                 <div>Percentage Gain</div>
                 <div className={WCSS.PercentageChart}>
-                  <div>{bot.percentGain}%</div>
+                  <div>{bot.percentGain.toFixed(2)}%</div>
                   <div className={WCSS.MiniChart}>
                     <Sparklines data={bot.chartData} width={60} height={20}>
                       <SparklinesLine color="#f55c47" style={{ fill: "#ffe4e1", strokeWidth: 2 }} />
@@ -255,7 +325,6 @@ function Watchlist() {
                 </div>
               </div>
 
-              {/* FOURTH COLUMN */}
               <div className={WCSS.BotFourth}>
                 <div>Working Time</div>
                 <div className={WCSS.WorkingTime}>{bot.workingTime}</div>
@@ -263,7 +332,6 @@ function Watchlist() {
                 <div className={WCSS.OrderCount}>{bot.orders}</div>
               </div>
 
-              {/* FIFTH COLUMN */}
               <div className={WCSS.BotFifth}>
                 <div>Total Balance</div>
                 <div className={WCSS.Balance}>{bot.balance}</div>
