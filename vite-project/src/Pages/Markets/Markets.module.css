@@ -196,26 +196,38 @@
     display: flex;
     align-items: center;
     gap: 15px;
+    position: relative;
 }
 
 .SearchContainer {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 250px;
-    padding: 8px 12px;
-    border-radius: 6px;
-    background-color: #e4ebf4;
-    color: #676f79;
+    position: relative;
+    width: 250px;
+    min-width: 200px;
 }
+
 .SearchContainer input {
-    border: none;
-    outline: none;
-    flex: 1;
-    padding-left: 8px;
-    background-color: transparent;
-    color: #676f79;
+    width: 100%;
+    padding: 8px 30px 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #e1e5eb;
+    background-color: #f8fafd;
     font-size: 0.85rem;
+}
+
+.SearchContainer input::placeholder {
+    color: #676f79;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.SearchContainer svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #676f79;
 }
 
 .ColumnContainer, .FilterContainer {
@@ -228,6 +240,38 @@
     padding: 8px 12px;
     border-radius: 6px;
     cursor: pointer;
+    white-space: nowrap;
+}
+
+.FilterDropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 10px;
+    z-index: 10;
+    width: 200px;
+    margin-top: 5px;
+}
+
+.FilterOption {
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 2px 0;
+    font-size: 0.85rem;
+}
+
+.FilterOption:hover {
+    background-color: #f0f4f8;
+}
+
+.ActiveFilter {
+    background-color: #e6f0ff;
+    color: #3c7cdc;
+    font-weight: 500;
 }
 
 /* Table Headers */
@@ -447,6 +491,12 @@
     height: 50px;
 }
 
+.Loading {
+    padding: 40px;
+    text-align: center;
+    color: #4a5568;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
     .AllTokensHeader, .AllTokensSecond {
@@ -460,115 +510,21 @@
         width: 180px;
         min-width: 180px;
     }
+    .SearchContainer {
+        min-width: 150px;
+    }
 }
 
-
- 
-
- 
- 
- 
- 
- 
-
-/*.AllTokensSecond{
-  display: flex;
-  justify-content: space-between;
-   color: #162342;
-   font-weight: 550;
-   font-size: 0.8rem;
- 
+@media (max-width: 768px) {
+    .AllTokensRight {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    .SearchContainer {
+        min-width: 100%;
+        order: 1;
+    }
 }
-
-.AllTokensSecond  svg:first-child{
-  color: rgb(49, 120, 202);
-  font-size: 1.2rem;
-}
-
-.SecondRowContainer{
-  display: flex;
-  align-items: center;
-}
-
-.TwoIcons{
-  display: flex;
-  align-items: center;
-  color: rgb(42, 136, 212);
-  font-size: 1.2rem;
- 
-}
-
-.AllTokensThird{
- display: flex;
-justify-content: space-between;
-margin-right: 190px;
- 
-}
-
- 
-
-.Price{
-  display: flex;
-  flex-direction: column;
- 
-}
-
-.PriceBelow{
-  display: flex;
-  width: fit-content;
-  gap: 10px;
-}
-
-.MarketCap{
-  color: #162342;
-}
-
-.Volume{
-  display: flex;
-  flex-direction: column;
-
-}
-
-.VolumeBelow{
-  display: flex;
-  width: fit-content;
-  gap: 10px;
-}
-
-.SFollowing{
-  display: flex;
-  gap: 20px;
-}
-
-.SFollowingLeft{
-  display: flex;
-}
-
-.DiscordContainer{
- display: flex;
- flex-direction: column;
-}
-
-.Discord2{
-  display: flex;
-  gap: 5px;
-}
-
-
-.SFollowingRight{
-  display: flex;
-}
-
-.TwitterContainer{
- display: flex;
- flex-direction: column;
-}
-
-.Twitter2{
-  display: flex;
-  gap: 5px;
-}*/
-
 
 
  

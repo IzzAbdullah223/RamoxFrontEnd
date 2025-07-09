@@ -1,11 +1,11 @@
-import MCSS from './Markets.module.css'
+import MCSS from './Markets.module.css';
 import { GoLinkExternal, GoTriangleDown } from "react-icons/go";
 import { BsPeopleFill, BsFillLightningChargeFill } from "react-icons/bs";
 import { LuRows2 } from "react-icons/lu";
 import { IoSearch } from "react-icons/io5";
 import { HiMiniBarsArrowDown } from "react-icons/hi2";
 import { TbFileDescription, TbStar, TbStarFilled } from "react-icons/tb";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import BitCoinImage from '../../BitcoinImage.png'; 
 import { FaDiscord, FaTwitter } from "react-icons/fa";
 import { Line } from 'react-chartjs-2';
@@ -53,6 +53,67 @@ function Markets() {
   const [topLosers, setTopLosers] = useState<Token[]>([]);
   const [allTokens, setAllTokens] = useState<Token[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
+
+  const filterOptions = [
+    { id: 'price_up', label: 'Price (High to Low)' },
+    { id: 'price_down', label: 'Price (Low to High)' },
+    { id: 'volume_up', label: 'Volume (High to Low)' },
+    { id: 'volume_down', label: 'Volume (Low to High)' },
+    { id: 'gainers', label: 'Top Gainers' },
+    { id: 'losers', label: 'Top Losers' },
+  ];
+
+  const filteredTokens = useMemo(() => {
+    let result = [...allTokens];
+
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      result = result.filter(token => 
+        token.name.toLowerCase().includes(term) || 
+        token.symbol.toLowerCase().includes(term)
+      );
+    }
+
+    selectedFilters.forEach(filter => {
+      switch(filter) {
+        case 'price_up':
+          result.sort((a, b) => b.quote.USD.price - a.quote.USD.price);
+          break;
+        case 'price_down':
+          result.sort((a, b) => a.quote.USD.price - b.quote.USD.price);
+          break;
+        case 'volume_up':
+          result.sort((a, b) => b.quote.USD.volume_24h - a.quote.USD.volume_24h);
+          break;
+        case 'volume_down':
+          result.sort((a, b) => a.quote.USD.volume_24h - b.quote.USD.volume_24h);
+          break;
+        case 'gainers':
+          result = result.filter(token => token.quote.USD.percent_change_24h > 0)
+            .sort((a, b) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h);
+          break;
+        case 'losers':
+          result = result.filter(token => token.quote.USD.percent_change_24h < 0)
+            .sort((a, b) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h);
+          break;
+        default:
+          break;
+      }
+    });
+
+    return result;
+  }, [allTokens, searchTerm, selectedFilters]);
+
+  const toggleFilter = (filterId: string) => {
+    setSelectedFilters(prev => 
+      prev.includes(filterId) 
+        ? prev.filter(id => id !== filterId) 
+        : [...prev, filterId]
+    );
+  };
 
   const generatePriceData = (currentPrice: number): { price: number }[] => {
     return Array.from({ length: 24 }, (_, i) => ({
@@ -292,17 +353,41 @@ function Markets() {
           <h2>All Tokens</h2>
           <div className={MCSS.AllTokensRight}> 
             <div className={MCSS.SearchContainer}>
-              <input type='text' placeholder='Search by Token name or tag'></input>
-              <IoSearch></IoSearch>
+              <input 
+                type='text' 
+                placeholder='Search by Token name or tag'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <IoSearch />
             </div>
             <div className={MCSS.ColumnContainer}>
               <div>Columns</div>
-              <LuRows2></LuRows2>
+              <LuRows2 />
             </div>
-            <div className={MCSS.FilterContainer}>
+            <div 
+              className={MCSS.FilterContainer}
+              onClick={() => setShowFilters(!showFilters)}
+            >
               <div>Filters</div>
-              <HiMiniBarsArrowDown></HiMiniBarsArrowDown>
+              <HiMiniBarsArrowDown />
             </div>
+            
+            {showFilters && (
+              <div className={MCSS.FilterDropdown}>
+                {filterOptions.map(option => (
+                  <div 
+                    key={option.id}
+                    className={`${MCSS.FilterOption} ${
+                      selectedFilters.includes(option.id) ? MCSS.ActiveFilter : ''
+                    }`}
+                    onClick={() => toggleFilter(option.id)}
+                  >
+                    {option.label}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -344,7 +429,7 @@ function Markets() {
               </div>
             </div>
 
-            {allTokens.map((token) => {
+            {filteredTokens.map((token) => {
               const discordData = getRandomSocialData();
               const twitterData = getRandomSocialData();
               

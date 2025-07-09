@@ -10,7 +10,7 @@ function Header(){
     
 
     return(<div className={HeaderCSS.HeaderContainer}>
-            <h1>AI Trading Bots</h1>
+            <h1>AI Trading Bot</h1>
             <div className={HeaderCSS.RightContainer}>
              <IoSearch/>
              <MdOutlineEmail/>
