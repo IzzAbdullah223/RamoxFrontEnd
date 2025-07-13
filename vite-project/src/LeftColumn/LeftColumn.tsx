@@ -26,7 +26,7 @@ const currentPath = location.pathname;
         <div className={LCSS.LeftColumn}>
             <div className={LCSS.LCTop}>
                 <img src="../assets/Coin.svg"></img>
-                <h2>AI BROKER</h2>
+                <h2>RAMOX</h2>
             </div>
             <div className={LCSS.Box}>
                 <h4>Name</h4>
