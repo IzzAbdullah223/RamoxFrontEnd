@@ -5,6 +5,7 @@ import { FaRegBell } from "react-icons/fa6";
 import { FaRegMoon } from "react-icons/fa";
 import { FaRegSun } from "react-icons/fa6";
 import { RxExit } from "react-icons/rx";
+import { FaLanguage } from "react-icons/fa";
 
 function Header(){
     
@@ -16,6 +17,7 @@ function Header(){
              <MdOutlineEmail/>
              <FaRegBell />
              <FaRegMoon/>
+             <span className={HeaderCSS.Language}> <FaLanguage></FaLanguage></span>
              <span className={HeaderCSS.Sun}> <FaRegSun/> </span>
              <RxExit />
             </div>
