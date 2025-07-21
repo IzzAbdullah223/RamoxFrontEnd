@@ -1,0 +1,22 @@
+export default {
+  appTitle: "AI Trading Bot",
+  markets: "Markets",
+  watchlist: "Watchlist",
+  bot: "AI Bot",
+  signUp: "Sign Up Now",
+  totalBalance: "Total Balance",
+  topVolume: "Top 5 Volume",
+  topGainers: "Top 5 Gainers",
+  topLosers: "Top 5 Losers",
+  allTokens: "All Tokens",
+  exchange: "Exchange",
+  volume: "Volume",
+  token: "Token",
+  totalGain: "Total Gain",
+  totalLoss: "Total Loss",
+  price: "Price",
+  marketCap: "Market Cap",
+  socialFollowing: "Social Following",
+  circulatingSupply: "Circulating Supply",
+  // Add more translations as needed
+};

@@ -1,0 +1,22 @@
+export default {
+  appTitle: "بوت التداول بالذكاء الاصطناعي",
+  markets: "الأسواق",
+  watchlist: "قائمة المراقبة",
+  bot: "بوت الذكاء الاصطناعي",
+  signUp: "اشترك الآن",
+  totalBalance: "إجمالي الرصيد",
+  topVolume: "أعلى 5 من حيث الحجم",
+  topGainers: "أعلى 5 رابحين",
+  topLosers: "أعلى 5 خاسرين",
+  allTokens: "جميع الرموز",
+  exchange: "التبادل",
+  volume: "الحجم",
+  token: "الرمز",
+  totalGain: "إجمالي الربح",
+  totalLoss: "إجمالي الخسارة",
+  price: "السعر",
+  marketCap: "القيمة السوقية",
+  socialFollowing: "المتابعون على وسائل التواصل",
+  circulatingSupply: "العرض المتداول",
+  // Add corresponding Arabic translations
+};
