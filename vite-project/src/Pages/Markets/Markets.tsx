@@ -9,6 +9,8 @@ import { useEffect, useState, useMemo } from 'react';
 import BitCoinImage from '../../BitcoinImage.png'; 
 import { FaDiscord, FaTwitter } from "react-icons/fa";
 import { Line } from 'react-chartjs-2';
+import { useTranslation } from '../../Hooks/useTranslations';
+ 
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,6 +18,8 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
+
+
 
 ChartJS.register(
   CategoryScale,
@@ -56,56 +60,44 @@ function Markets() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const { t } = useTranslation();
 
   const filterOptions = [
-    { id: 'price_up', label: 'Price (High to Low)' },
-    { id: 'price_down', label: 'Price (Low to High)' },
-    { id: 'volume_up', label: 'Volume (High to Low)' },
-    { id: 'volume_down', label: 'Volume (Low to High)' },
-    { id: 'gainers', label: 'Top Gainers' },
-    { id: 'losers', label: 'Top Losers' },
+    { id: 'price_up', label: t('priceHighToLow') },
+    { id: 'price_down', label: t('priceLowToHigh') },
+    { id: 'volume_up', label: t('volumeHighToLow') },
+    { id: 'volume_down', label: t('volumeLowToHigh') },
+    { id: 'gainers', label: t('topGainers') },
+    { id: 'losers', label: t('topLosers') },
   ];
 
-  const filteredTokens = useMemo(() => {
-    let result = [...allTokens];
-
-    if (searchTerm) {
-      const term = searchTerm.toLowerCase();
-      result = result.filter(token => 
-        token.name.toLowerCase().includes(term) || 
-        token.symbol.toLowerCase().includes(term)
-      );
+const filteredTokens = useMemo(() => {
+  let result = [...allTokens];
+  if (searchTerm) {
+    const term = searchTerm.toLowerCase();
+    result = result.filter(token => 
+      token.name.toLowerCase().includes(term) || 
+      token.symbol.toLowerCase().includes(term)
+    ); // Added missing parenthesis here
+  }
+  selectedFilters.forEach(filter => {
+    switch(filter) {
+      case 'price_up': result.sort((a, b) => b.quote.USD.price - a.quote.USD.price); break;
+      case 'price_down': result.sort((a, b) => a.quote.USD.price - b.quote.USD.price); break;
+      case 'volume_up': result.sort((a, b) => b.quote.USD.volume_24h - a.quote.USD.volume_24h); break;
+      case 'volume_down': result.sort((a, b) => a.quote.USD.volume_24h - b.quote.USD.volume_24h); break;
+      case 'gainers': 
+        result = result.filter(token => token.quote.USD.percent_change_24h > 0)
+          .sort((a, b) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h); 
+        break;
+      case 'losers': 
+        result = result.filter(token => token.quote.USD.percent_change_24h < 0)
+          .sort((a, b) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h); 
+        break;
     }
-
-    selectedFilters.forEach(filter => {
-      switch(filter) {
-        case 'price_up':
-          result.sort((a, b) => b.quote.USD.price - a.quote.USD.price);
-          break;
-        case 'price_down':
-          result.sort((a, b) => a.quote.USD.price - b.quote.USD.price);
-          break;
-        case 'volume_up':
-          result.sort((a, b) => b.quote.USD.volume_24h - a.quote.USD.volume_24h);
-          break;
-        case 'volume_down':
-          result.sort((a, b) => a.quote.USD.volume_24h - b.quote.USD.volume_24h);
-          break;
-        case 'gainers':
-          result = result.filter(token => token.quote.USD.percent_change_24h > 0)
-            .sort((a, b) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h);
-          break;
-        case 'losers':
-          result = result.filter(token => token.quote.USD.percent_change_24h < 0)
-            .sort((a, b) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h);
-          break;
-        default:
-          break;
-      }
-    });
-
-    return result;
-  }, [allTokens, searchTerm, selectedFilters]);
+  });
+  return result;
+}, [allTokens, searchTerm, selectedFilters]);
 
   const toggleFilter = (filterId: string) => {
     setSelectedFilters(prev => 
@@ -126,31 +118,17 @@ function Markets() {
       try {
         const response = await fetch('http://localhost:5000/api/tokens');
         const data = await response.json();
-
         if (data && data.data && Array.isArray(data.data)) {
           const tokens: Token[] = data.data.map((token: any) => ({
             ...token,
             price_data: generatePriceData(token.quote.USD.price)
           }));
-
-          setTopVolume([...tokens]
-            .sort((a: Token, b: Token) => b.quote.USD.volume_24h - a.quote.USD.volume_24h)
-            .slice(0, 5));
-
-          setTopGainers([...tokens]
-            .filter((token: Token) => token.quote.USD.percent_change_24h > 0)
-            .sort((a: Token, b: Token) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h)
-            .slice(0, 5));
-
-          setTopLosers([...tokens]
-            .filter((token: Token) => token.quote.USD.percent_change_24h < 0)
-            .sort((a: Token, b: Token) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h)
-            .slice(0, 5));
-
-          setAllTokens([...tokens]
-            .sort((a: Token, b: Token) => b.quote.USD.market_cap - a.quote.USD.market_cap)
-            .slice(0, 10));
-
+          setTopVolume([...tokens].sort((a, b) => b.quote.USD.volume_24h - a.quote.USD.volume_24h).slice(0, 5));
+          setTopGainers([...tokens].filter((token) => token.quote.USD.percent_change_24h > 0)
+            .sort((a, b) => b.quote.USD.percent_change_24h - a.quote.USD.percent_change_24h).slice(0, 5));
+          setTopLosers([...tokens].filter((token) => token.quote.USD.percent_change_24h < 0)
+            .sort((a, b) => a.quote.USD.percent_change_24h - b.quote.USD.percent_change_24h).slice(0, 5));
+          setAllTokens([...tokens].sort((a, b) => b.quote.USD.market_cap - a.quote.USD.market_cap).slice(0, 10));
           setLoading(false);
         }
       } catch (error) {
@@ -158,13 +136,11 @@ function Markets() {
         setLoading(false);
       }
     };
-
     fetchTokens();
   }, []);
 
   const MiniChart = ({ prices }: { prices: { price: number }[] }) => {
     const isUp = prices[prices.length - 1].price > prices[0].price;
-    
     return (
       <div className={MCSS.ChartContainer}>
         <Line
@@ -219,14 +195,11 @@ function Markets() {
     <div className={MCSS.PageContainer}>
       <div className={MCSS.SignUp}>
         <div className={MCSS.SignLeftSide}>
-          <h2>Sign Up to AI BROKER Tiers and enjoy all the <br /> perks</h2>
-          <div>
-            Unlock exclusive access to premium content, personalized insight
-            and unique perks by subscribing<br /> to AI Broker tiers now!
-          </div>
+          <h2>{t('signUpToTiers')}</h2>
+          <div>{t('signUpDescription')}</div>
         </div>
         <div className={MCSS.SignBox}>
-          <div>Sign Up Now </div>
+          <div>{t('signUpNow')}</div>
           <GoLinkExternal />
         </div>
       </div>
@@ -235,11 +208,11 @@ function Markets() {
         <div className={MCSS.Top5}>
           <div className={MCSS.TopName}>
             <div className={MCSS.Icon}><LuRows2 /></div>
-            <h2>Top 5 Volume</h2>
+            <h2>{t('topVolume')}</h2>
           </div>
           <div className={MCSS.TopHeaders}>
-            <div>EXCHANGE</div>
-            <div>VOLUME</div>
+            <div>{t('exchange')}</div>
+            <div>{t('volume')}</div>
           </div>
           <div className={MCSS.TopSides}>
             <div className={MCSS.TopLeft}>
@@ -259,11 +232,7 @@ function Markets() {
                   <div>${(token.quote.USD.volume_24h / 1e6).toFixed(2)}M</div>
                   <div className={MCSS.SevenContainer}>
                     <div className={MCSS.Top24}>24h</div>
-                    <div className={
-                      token.quote.USD.percent_change_24h >= 0
-                        ? MCSS.Inc
-                        : MCSS.Dec
-                    }>
+                    <div className={token.quote.USD.percent_change_24h >= 0 ? MCSS.Inc : MCSS.Dec}>
                       {token.quote.USD.percent_change_24h.toFixed(2)}%
                     </div>
                   </div>
@@ -276,11 +245,11 @@ function Markets() {
         <div className={MCSS.Top5}>
           <div className={MCSS.TopName}>
             <div className={MCSS.Icon}><BsFillLightningChargeFill /></div>
-            <h2>Top 5 Gainers</h2>
+            <h2>{t('topGainers')}</h2>
           </div>
           <div className={MCSS.TopHeaders}>
-            <div>TOKEN</div>
-            <div>TOTAL GAIN</div>
+            <div>{t('token')}</div>
+            <div>{t('totalGain')}</div>
           </div>
           <div className={MCSS.TopSides}>
             <div className={MCSS.TopLeft}>
@@ -313,11 +282,11 @@ function Markets() {
         <div className={MCSS.Top5}>
           <div className={MCSS.TopName}>
             <div className={MCSS.Icon}><BsPeopleFill /></div>
-            <h2>Top 5 Losers</h2>
+            <h2>{t('topLosers')}</h2>
           </div>
           <div className={MCSS.TopHeaders}>
-            <div>TOKEN</div>
-            <div>TOTAL LOSS</div>
+            <div>{t('token')}</div>
+            <div>{t('totalLoss')}</div>
           </div>
           <div className={MCSS.TopSides}>
             <div className={MCSS.TopLeft}>
@@ -350,26 +319,26 @@ function Markets() {
 
       <div className={MCSS.AllTokensContainer}>
         <div className={MCSS.AllTokensTop}>
-          <h2>All Tokens</h2>
+          <h2>{t('allTokens')}</h2>
           <div className={MCSS.AllTokensRight}> 
             <div className={MCSS.SearchContainer}>
               <input 
                 type='text' 
-                placeholder='Search by Token name or tag'
+                placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <IoSearch />
             </div>
             <div className={MCSS.ColumnContainer}>
-              <div>Columns</div>
+              <div>{t('columns')}</div>
               <LuRows2 />
             </div>
             <div 
               className={MCSS.FilterContainer}
               onClick={() => setShowFilters(!showFilters)}
             >
-              <div>Filters</div>
+              <div>{t('filters')}</div>
               <HiMiniBarsArrowDown />
             </div>
             
@@ -392,7 +361,7 @@ function Markets() {
         </div>
 
         {loading ? (
-          <div className={MCSS.Loading}>Loading tokens...</div>
+          <div className={MCSS.Loading}>{t('loadingTokens')}</div>
         ) : (
           <div className={MCSS.AllTokensList}>
             <div className={MCSS.AllTokensHeader}>
@@ -400,31 +369,31 @@ function Markets() {
                 <TbStarFilled/>
               </div>
               <div className={MCSS.TokenHeader}>
-                <h5>Token</h5>
+                <h5>{t('token')}</h5>
                 <GoTriangleDown />
               </div>
               <div className={MCSS.PriceHeader}>
-                <h5>Price</h5>
+                <h5>{t('price')}</h5>
                 <GoTriangleDown />
               </div>
               <div className={MCSS.MarketHeader}>
-                <h5>Market Cap</h5>
+                <h5>{t('marketCap')}</h5>
                 <GoTriangleDown />
               </div>
               <div className={MCSS.VolumeHeader}>
-                <h5>Volume</h5>
+                <h5>{t('volume')}</h5>
                 <GoTriangleDown />
               </div>
               <div className={MCSS.SocialHeader}>
-                <h5>Social Following</h5>
+                <h5>{t('socialFollowing')}</h5>
                 <GoTriangleDown />
               </div>
               <div className={MCSS.ChartHeader}>
-                <h5>24h Curve</h5>
+                <h5>{t('priceCurve24h')}</h5>
                 <GoTriangleDown />
               </div>
               <div className={MCSS.CirculatingHeader}>
-                <h5>Circulating Supply</h5>
+                <h5>{t('circulatingSupply')}</h5>
                 <GoTriangleDown />
               </div>
             </div>

@@ -532,7 +532,57 @@
 
  
  
+css
 
+/* RTL Specific Styles */
+[dir="rtl"] .Top5Container {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .AllTokensRight {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .TokenContainer {
+  text-align: right;
+}
+
+[dir="rtl"] .TopHeaders,
+[dir="rtl"] .TopSides {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .Interact {
+  text-align: left;
+}
+
+[dir="rtl"] .SevenContainer {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .SearchContainer input {
+  padding: 8px 12px 8px 30px;
+}
+
+[dir="rtl"] .SearchContainer svg {
+  left: 10px;
+  right: auto;
+}
+
+[dir="rtl"] .FilterDropdown {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .AllTokensHeader,
+[dir="rtl"] .AllTokensSecond {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .Prices,
+[dir="rtl"] .Socials {
+  flex-direction: row-reverse;
+}
  
 
 

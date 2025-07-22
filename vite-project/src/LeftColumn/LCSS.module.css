@@ -1,26 +1,21 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; 
-}
-
- 
-
-body{
-    background-color: #f6faff;
-}
-.LeftColumn{
+.LeftColumn {
     display: flex;
     flex-direction: column;
     gap: 40px;
     background-color: white;
     width: 210px;
-    height:  95vh;
+    height: 95vh;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     align-items: center;
     font-family: sans-serif;
 }
-.LCTop{
+
+/* RTL Support */
+[dir="rtl"] .LeftColumn {
+    font-family: 'Tahoma', 'Arial', sans-serif;
+}
+
+.LCTop {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -28,51 +23,62 @@ body{
     font-size: 0.9rem;
 }
 
-.Box{
+.Box {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-     text-align: center;
-     background: linear-gradient(135deg, #9ab7c0, #d9c3ff, #bfe2ff);
-     box-shadow: 0 4px 15px rgba(180, 180, 255, 0.3);
-     width:90%;
-     min-height:105px;
-     border-radius: 8px;
-     padding: 5px;
+    text-align: center;
+    background: linear-gradient(135deg, #9ab7c0, #d9c3ff, #bfe2ff);
+    box-shadow: 0 4px 15px rgba(180, 180, 255, 0.3);
+    width: 90%;
+    min-height: 105px;
+    border-radius: 8px;
+    padding: 5px;
 }
 
-.checkIcon,.falseIcon{
-  vertical-align: middle;
-  margin-left: 5px;
+.checkIcon,
+.falseIcon {
+    vertical-align: middle;
+    margin-left: 5px;
 }
 
-.Balance{
+[dir="rtl"] .checkIcon,
+[dir="rtl"] .falseIcon {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+.Balance {
     display: flex;
     flex-direction: column;
     width: fit-content;
 }
 
-.Balance div{
+.Balance div {
     text-align: center;
     margin-bottom: 5px;
 }
 
-.Balance span{
+.Balance span {
     font-size: 0.9rem;
 }
 
-.Balance,.Box{
+.Balance,
+.Box {
     color: #3d4667;
 }
 
-.checkIcon,.Inc{
+.checkIcon,
+.Inc {
     color: rgba(0, 128, 0, 0.568);
 }
-.falseIcon,.Dec{
+
+.falseIcon,
+.Dec {
     color: red;
 }
 
-.Nav{
+.Nav {
     font-size: 1.1rem;
     display: flex;
     flex-direction: column;
@@ -87,20 +93,31 @@ body{
     cursor: pointer;
     text-decoration: none;
     color: inherit;
-    padding: 10px 10px;
+    padding: 10px;
     border-radius: 3px;
-    transition: background 0.2s, color 0.2s;  /* Smooth hover */
+    transition: background 0.2s, color 0.2s;
+}
+
+[dir="rtl"] .Market {
+    flex-direction: row-reverse;
 }
 
 .Market:hover {
-    background: rgba(0, 0, 0, 0.05);  /* light gray background */
-    color: #2b7bfb;  /* blue text */
+    background: rgba(0, 0, 0, 0.05);
+    color: #2b7bfb;
 }
 
 .Active {
     color: white;
     background: linear-gradient(to right, #3c8eff, #2b7bfb, #1051d3be);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+[dir="rtl"] .Active {
+    background: linear-gradient(to left, #3c8eff, #2b7bfb, #1051d3be);
 }
 
 .Active:hover {
@@ -108,33 +125,23 @@ body{
     color: white;
 }
 
- 
-.Active{
-color: white;
-background: linear-gradient(to right, #3c8eff, #2b7bfb, #1051d3be);
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-width: 100%;
-padding: 10px 10px;
-border-radius: 3px;
-}
-
-.Upqrade{
+.Upqrade {
     display: flex;
     align-items: center;
     gap: 20px;
-    box-shadow:
-    0 0 12px #d9c3ff,
-    0 0 24px #bfe2ff,
-    0 4px 30px rgba(154, 183, 192, 0.5);
-    width:  90%;
+    box-shadow: 0 0 12px #d9c3ff, 0 0 24px #bfe2ff, 0 4px 30px rgba(154, 183, 192, 0.5);
+    width: 90%;
     padding: 5px 10px;
     color: #272f46;
     margin-top: auto;
     margin-bottom: 40px;
-    
 }
 
-.Upqrade div>div{
+[dir="rtl"] .Upqrade {
+    flex-direction: row-reverse;
+}
+
+.Upqrade div>div {
     font-size: 0.7rem;
     margin-bottom: 3px;
 }

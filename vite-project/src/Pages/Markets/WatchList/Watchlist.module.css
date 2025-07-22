@@ -332,3 +332,26 @@
         justify-content: space-between;
     }
 }
+
+
+[dir="rtl"] .RightImage {
+  margin-left: 0;
+  margin-right: -5px;
+}
+
+[dir="rtl"] .BotItemsContainer {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .TradeStats {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .BotActions {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .BotDropdown {
+  left: auto;
+  right: 0;
+}

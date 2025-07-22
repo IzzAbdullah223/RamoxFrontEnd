@@ -5,6 +5,7 @@ import Ethernum from '../../../Etherneum.svg';
 import Tether from '../../../Tether.svg';
 //@ts-ignore
 import { Sparklines, SparklinesLine } from 'react-sparklines';
+import { useTranslation } from '../../../Hooks/useTranslations';
 
 type TradeRatio = {
   green: number;
@@ -28,7 +29,6 @@ type Bot = {
   icons: string[];
 };
 
-// Helper function to increment time
 const incrementTime = (timeStr: string): string => {
   if (!timeStr.includes('d')) {
     const [hours, minutes] = timeStr.split('h ').map(part => parseInt(part));
@@ -56,7 +56,6 @@ const incrementTime = (timeStr: string): string => {
   }
 };
 
-// Initial bots data with realistic starting values
 const initialBots: Bot[] = [
   {
     id: 1,
@@ -128,16 +127,15 @@ const newBotTemplate: Bot = {
 };
 
 function Watchlist() {
+  const { t, isRTL } = useTranslation();
   const [bots, setBots] = useState<Bot[]>(initialBots);
   const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
   const [showBotDropdown, setShowBotDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Simulate live data updates for active bots
   useEffect(() => {
     const interval = setInterval(() => {
       setBots(prevBots => prevBots.map(bot => {
-        // Only update the first two bots when active
         if ((bot.id === 1 || bot.id === 2) && bot.status === 'Active') {
           const smallRandom = () => (Math.random() - 0.4) * (bot.id === 1 ? 1.2 : 0.8);
           const newChartValue = bot.chartData[bot.chartData.length - 1] + smallRandom() * 2;
@@ -158,7 +156,7 @@ function Watchlist() {
         }
         return bot;
       }));
-    }, 3000); // Update every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -179,7 +177,7 @@ function Watchlist() {
     const newBot: Bot = { 
       ...newBotTemplate, 
       id: newBotId,
-      name: `Strategy ${newBotId}`,
+      name: `${t('strategy')} ${newBotId}`,
       date: new Date().toLocaleDateString('en-GB', { 
         day: 'numeric', 
         month: 'short', 
@@ -214,7 +212,7 @@ function Watchlist() {
   };
 
   const handleEditBot = (botId: number) => {
-    const newName = prompt('Edit strategy name:', bots.find(bot => bot.id === botId)?.name || '');
+    const newName = prompt(t('editStrategyPrompt'), bots.find(bot => bot.id === botId)?.name || '');
     if (newName) {
       setBots(bots.map(bot => bot.id === botId ? { ...bot, name: newName } : bot));
       if (selectedBot?.id === botId) {
@@ -224,22 +222,22 @@ function Watchlist() {
   };
 
   return (
-    <div className={WCSS.PageContainer}>
+    <div className={WCSS.PageContainer} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className={WCSS.Top}>
-        <h3>AI Trading Strategies</h3>
+        <h3>{t('aiTradingStrategies')}</h3>
         <div className={WCSS.RightSide} ref={dropdownRef}>
           <div 
             className={WCSS.AllBots} 
             onClick={() => setShowBotDropdown(!showBotDropdown)}
           >
-            <div>{selectedBot ? selectedBot.name : 'All Strategies'}</div>
+            <div>{selectedBot ? selectedBot.name : t('allStrategies')}</div>
             {showBotDropdown ? <GoTriangleUp /> : <GoTriangleDown />}
           </div>
           <div 
             className={WCSS.AddStrategy}
             onClick={addNewBot}
           >
-            <div>+ Add Strategy</div>
+            <div>+ {t('addStrategy')}</div>
           </div>
 
           {showBotDropdown && (
@@ -248,7 +246,7 @@ function Watchlist() {
                 className={WCSS.BotDropdownItem}
                 onClick={() => handleBotSelect(null)}
               >
-                All Strategies
+                {t('allStrategies')}
               </div>
               {bots.map(bot => (
                 <div 
@@ -271,14 +269,14 @@ function Watchlist() {
             <div className={WCSS.BotHeader}>
               <h3>{bot.name}</h3>
               <span className={WCSS.BotStatus} data-status={bot.status.toLowerCase()}>
-                {bot.status}
+                {bot.status === 'Active' ? t('active') : t('inactive')}
               </span>
             </div>
             <div className={WCSS.BotItemsContainer}>
               <div className={WCSS.BotFirst}>
                 <div className={WCSS.BotTop}> 
-                  <img src={bot.icons[0]} alt="left coin" />
-                  <img className={WCSS.RightImage} src={bot.icons[1]} alt="right coin" />
+                  <img src={bot.icons[0]} alt={t('leftCoin')} />
+                  <img className={WCSS.RightImage} src={bot.icons[1]} alt={t('rightCoin')} />
                   <div>{bot.pair}</div>
                 </div>
                 <div className={WCSS.Date}>{bot.date}</div>
@@ -290,21 +288,21 @@ function Watchlist() {
               </div>
 
               <div className={WCSS.BotSecond}>
-                <div>Trade Ratio</div>
+                <div>{t('tradeRatio')}</div>
                 <div className={WCSS.GreenBarContainer}>
                   <div className={WCSS.GreenRatio} style={{ width: `${bot.tradeRatio.green}%` }}></div>
                   <div className={WCSS.RedRatio} style={{ width: `${bot.tradeRatio.red}%` }}></div>
                 </div>
                 <div className={WCSS.TradeStats}>
-                  <span className={WCSS.GreenStat}>{bot.tradeRatio.green.toFixed(1)}% Win</span>
-                  <span className={WCSS.RedStat}>{bot.tradeRatio.red.toFixed(1)}% Loss</span>
+                  <span className={WCSS.GreenStat}>{bot.tradeRatio.green.toFixed(1)}% {t('win')}</span>
+                  <span className={WCSS.RedStat}>{bot.tradeRatio.red.toFixed(1)}% {t('loss')}</span>
                 </div>
-                <div>Total Trades</div>
+                <div>{t('totalTrades')}</div>
                 <div className={WCSS.TradeCount}>{bot.trades}</div>
               </div>
 
               <div className={WCSS.BotThird}>
-                <div>Profit Gained</div>
+                <div>{t('profitGained')}</div>
                 <div className={WCSS.GainGreenThing}>
                   ${bot.profitGained.toFixed(2)}
                   <div className={WCSS.MiniChart}>
@@ -314,7 +312,7 @@ function Watchlist() {
                   </div>
                 </div>
 
-                <div>Percentage Gain</div>
+                <div>{t('percentageGain')}</div>
                 <div className={WCSS.PercentageChart}>
                   <div>{bot.percentGain.toFixed(2)}%</div>
                   <div className={WCSS.MiniChart}>
@@ -326,28 +324,28 @@ function Watchlist() {
               </div>
 
               <div className={WCSS.BotFourth}>
-                <div>Working Time</div>
+                <div>{t('workingTime')}</div>
                 <div className={WCSS.WorkingTime}>{bot.workingTime}</div>
-                <div>Current Orders</div>
+                <div>{t('currentOrders')}</div>
                 <div className={WCSS.OrderCount}>{bot.orders}</div>
               </div>
 
               <div className={WCSS.BotFifth}>
-                <div>Total Balance</div>
+                <div>{t('totalBalance')}</div>
                 <div className={WCSS.Balance}>{bot.balance}</div>
-                <div>Actions</div>
+                <div>{t('actions')}</div>
                 <div className={WCSS.BotActions}>
                   <button 
                     className={WCSS.ActionButton}
                     onClick={() => handleEditBot(bot.id)}
                   >
-                    Edit
+                    {t('edit')}
                   </button>
                   <button 
                     className={`${WCSS.ActionButton} ${bot.status === 'Active' ? WCSS.StopButton : WCSS.StartButton}`}
                     onClick={() => toggleBotStatus(bot.id)}
                   >
-                    {bot.status === 'Active' ? 'Stop' : 'Start'}
+                    {bot.status === 'Active' ? t('stop') : t('start')}
                   </button>
                 </div>
               </div>
