@@ -6,31 +6,42 @@ import { FaRegMoon } from "react-icons/fa";
 import { FaRegSun } from "react-icons/fa6";
 import { RxExit } from "react-icons/rx";
 import { FaLanguage } from "react-icons/fa";
-import { useLanguage } from '../LanguageContext'
+import { useLanguage } from '../LanguageContext';
+import { useDarkMode } from '../DarkModeContext';
 
-function Header() {
+export default function Header() {
   const { language, toggleLanguage, isRTL } = useLanguage();
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <div className={HeaderCSS.HeaderContainer} dir={isRTL ? 'rtl' : 'ltr'}>
       <h1>{language === 'en' ? 'AI Trading Bot' : 'بوت التداول بالذكاء الاصطناعي'}</h1>
       <div className={HeaderCSS.RightContainer}>
-        <IoSearch/>
-        <MdOutlineEmail/>
-        <FaRegBell />
-        <FaRegMoon/>
-        <span 
-          className={HeaderCSS.Language} 
+        <span className={HeaderCSS.icon}><IoSearch aria-hidden="true" /></span>
+        <span className={HeaderCSS.icon}><MdOutlineEmail aria-hidden="true" /></span>
+        <span className={HeaderCSS.icon}><FaRegBell aria-hidden="true" /></span>
+        
+        <button
+          onClick={toggleDarkMode}
+          className={HeaderCSS.themeToggle}
+          aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          <span className={HeaderCSS.icon}>
+            {darkMode ? <FaRegSun /> : <FaRegMoon />}
+          </span>
+        </button>
+        
+        <button
+          className={HeaderCSS.Language}
           onClick={toggleLanguage}
           title={language === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية'}
+          aria-label="Toggle language"
         >
-          <FaLanguage />
-        </span>
-        <span className={HeaderCSS.Sun}><FaRegSun/></span>
-        <RxExit />
+          <span className={HeaderCSS.icon}><FaLanguage /></span>
+        </button>
+        
+        <span className={HeaderCSS.icon}><RxExit aria-hidden="true" /></span>
       </div>
     </div>
   );
 }
-
-export default Header;

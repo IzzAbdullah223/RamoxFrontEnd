@@ -146,6 +146,99 @@
     margin-bottom: 3px;
 }
 
+
+/* LeftColumn.module.css */
+
+/* Light Mode (default) */
+.LeftColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-color: white;
+    width: 210px;
+    height: 95vh;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+/* Dark Mode */
+[data-theme="dark"] .LeftColumn {
+    background-color: #1e1e1e;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
+}
+
+[data-theme="dark"] .LCTop {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .Box {
+    background: linear-gradient(135deg, #2a3a40, #3a2a4a, #2a3a4a);
+    color: #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .Balance {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .Nav {
+    color: #a0a0a0;
+}
+
+[data-theme="dark"] .Market:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #4CAF50; /* Green accent */
+}
+
+[data-theme="dark"] .Active {
+    background: linear-gradient(to right, #2a5a3a, #2a7b3a, #1a513a);
+    color: white;
+}
+
+[data-theme="dark"] .Upqrade {
+    box-shadow: 0 0 12px #1a2a3a, 0 0 24px #1a3a4a, 0 4px 30px rgba(26, 42, 58, 0.5);
+    color: #e0e0e0;
+}
+
+/* Keep original colors for these elements */
+[data-theme="dark"] .checkIcon,
+[data-theme="dark"] .Inc {
+    color: rgba(0, 128, 0, 0.568); /* Original green */
+}
+
+[data-theme="dark"] .falseIcon,
+[data-theme="dark"] .Dec {
+    color: red; /* Original red */
+}
+
+/* RTL Support */
+[dir="rtl"] .LeftColumn {
+    font-family: 'Tahoma', 'Arial', sans-serif;
+}
+
+[dir="rtl"] .checkIcon,
+[dir="rtl"] .falseIcon {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+[dir="rtl"] .Market {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .Active {
+    background: linear-gradient(to left, #3c8eff, #2b7bfb, #1051d3be);
+}
+
+[dir="rtl"][data-theme="dark"] .Active {
+    background: linear-gradient(to left, #2a5a3a, #2a7b3a, #1a513a);
+}
+
+[dir="rtl"] .Upqrade {
+    flex-direction: row-reverse;
+}
+
  
 
 

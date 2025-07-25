@@ -368,6 +368,7 @@
 .TokenContainer {
     width: 200px;
     min-width: 200px;
+   cursor: pointer;
 }
 .TokenBelow {
     display: flex;
@@ -585,8 +586,130 @@ css
 }
  
 
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2d2d2d;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent-color: #4CAF50; /* Green accent */
+  --border-color: #333;
+  --positive: #61af95; /* Keep original green */
+  --negative: #ea3943; /* Keep original red */
+}
+
+/* Base Dark Mode Styles */
+[data-theme="dark"] .PageContainer {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* SignUp Section */
+[data-theme="dark"] .SignUp {
+  background: linear-gradient(to right, 
+    #1a3a4a, #1a3240, #1a2e3a, #1a3642, #1a2e4a,
+    #1a224a, #1a2a5a, #1a245a, #1a285a, #1a1e4a);
+}
+
+[data-theme="dark"] .SignLeftSide {
+  color: var(--text-primary);
+}
+
+/* Cards */
+[data-theme="dark"] .Top5,
+[data-theme="dark"] .AllTokensContainer {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .TopName,
+[data-theme="dark"] .AllTokensTop h2,
+[data-theme="dark"] .TokenBelow>div>div:first-child,
+[data-theme="dark"] .PriceBelow h5,
+[data-theme="dark"] .MarketBelow,
+[data-theme="dark"] .SocialBelow h5 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .TokenBelow>div>div:last-child,
+[data-theme="dark"] .TopHeaders {
+  color: var(--text-secondary);
+}
+
+/* Table Styles */
+[data-theme="dark"] .AllTokensHeader,
+[data-theme="dark"] .AllTokensTop {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .AllTokensHeader > div {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .AllTokensSecond {
+  border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .AllTokensSecond:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* Inputs and Filters */
+[data-theme="dark"] .SearchContainer input {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .ColumnContainer,
+[data-theme="dark"] .FilterContainer {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .FilterDropdown {
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .FilterOption:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* Keep original red/green for price changes */
+[data-theme="dark"] .Inc {
+  color: var(--positive); /* Original green (#61af95) */
+}
+
+[data-theme="dark"] .Dec {
+  color: var(--negative); /* Original red (#ea3943) */
+}
+
+/* Status indicators */
+[data-theme="dark"] .Top24 {
+  background-color: rgba(170, 199, 209, 0.1);
+  color: var(--text-secondary);
+}
+
+/* Chart container */
+[data-theme="dark"] .ChartContainer {
+  background-color: var(--bg-tertiary);
+}
+
+/* RTL Support - Dark Mode */
+[dir="rtl"][data-theme="dark"] .Interact {
+  text-align: right;
+}
+
+[dir="rtl"][data-theme="dark"] .SevenContainer {
+  justify-content: flex-end;
+}
 
 
+.TokenContainer:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Light gray background on hover */
+  transition: background-color 0.2s ease;
+}
 
 
 

@@ -10,6 +10,7 @@ import BitCoinImage from '../../BitcoinImage.png';
 import { FaDiscord, FaTwitter } from "react-icons/fa";
 import { Line } from 'react-chartjs-2';
 import { useTranslation } from '../../Hooks/useTranslations';
+import { useNavigate } from 'react-router-dom';
  
 import {
   Chart as ChartJS,
@@ -52,6 +53,8 @@ interface SocialData {
 }
 
 function Markets() {
+
+  const navigate = useNavigate();
   const [topVolume, setTopVolume] = useState<Token[]>([]);
   const [topGainers, setTopGainers] = useState<Token[]>([]);
   const [topLosers, setTopLosers] = useState<Token[]>([]);
@@ -411,7 +414,7 @@ const filteredTokens = useMemo(() => {
                     </div>
                   </div>
 
-                  <div className={MCSS.TokenContainer}>
+                  <div className={MCSS.TokenContainer} onClick={()=>navigate(`/token/${token.id}`)}>
                     <div className={MCSS.TokenBelow}>
                       <img 
                         src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${token.id}.png`} 

@@ -1,10 +1,4 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.HeaderContainer{
+.HeaderContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,21 +7,47 @@
     margin-bottom: 40px;
 }
 
-.HeaderContainer h1{
+[data-theme="dark"] .HeaderContainer {
+    color: #e0e0e0;
+}
+
+.HeaderContainer h1 {
     font-family: sans-serif;
     letter-spacing: 1px;
 }
 
-.RightContainer{
+.RightContainer {
     display: flex;
     gap: 15px;
     margin-right: 10px;
+    align-items: center;
 }
 
-.Language{
+/* Icon styles - now applied to the span */
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
     cursor: pointer;
+    color: currentColor;
 }
 
+.themeToggle {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    color: inherit;
+}
+
+.Language {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    color: inherit;
+}
 
 
  

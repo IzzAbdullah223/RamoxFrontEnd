@@ -1,0 +1,54 @@
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2d2d2d;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent-color: #4CAF50; /* Green accent */
+  --border-color: #333;
+}
+
+/* Apply dark mode globally */
+[data-theme="dark"] body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Dark mode for cards, containers, etc. */
+[data-theme="dark"] .Top5,
+[data-theme="dark"] .AllTokensContainer,
+[data-theme="dark"] .BotContainer {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .HeaderContainer,
+[data-theme="dark"] .TopName h2,
+[data-theme="dark"] .AllTokensTop h2,
+[data-theme="dark"] .TokenBelow>div>div:first-child,
+[data-theme="dark"] .PriceBelow h5,
+[data-theme="dark"] .MarketBelow,
+[data-theme="dark"] .SocialBelow h5 {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .TokenBelow>div>div:last-child,
+[data-theme="dark"] .Date,
+[data-theme="dark"] .TopHeaders {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .Inc {
+  color: var(--accent-color); /* Green for positive values */
+}
+
+[data-theme="dark"] .LeftColumn {
+  background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .SearchContainer input {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
