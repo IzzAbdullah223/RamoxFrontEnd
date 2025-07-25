@@ -676,13 +676,13 @@ css
   background-color: var(--bg-tertiary);
 }
 
-/* Keep original red/green for price changes */
+ 
 [data-theme="dark"] .Inc {
-  color: var(--positive); /* Original green (#61af95) */
+  color: var(--positive);  
 }
 
 [data-theme="dark"] .Dec {
-  color: var(--negative); /* Original red (#ea3943) */
+  color: var(--negative);  
 }
 
 /* Status indicators */
