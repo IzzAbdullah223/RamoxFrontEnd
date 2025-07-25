@@ -190,6 +190,7 @@ export default function TokenInfo() {
 
   return (
     <div className={TokenCSS.container}>
+      <h1 className={TokenCSS.TInfo}>Token Info</h1>
       <div className={TokenCSS.header}>
         <div className={TokenCSS.tokenHeader}>
           <div className={TokenCSS.tokenInfo}>
@@ -199,6 +200,7 @@ export default function TokenInfo() {
               className={TokenCSS.tokenLogo}
             />
             <div>
+              
               <h1>{token.name} <span>{token.symbol}</span></h1>
               <div className={TokenCSS.tokenMeta}>
                 <span>Rank #{token.id}</span>
@@ -400,17 +402,6 @@ export default function TokenInfo() {
             </div>
           </div>
         )}
-
-        <div className={TokenCSS.section}>
-          <h2>Tags & Categories</h2>
-          <div className={TokenCSS.tagsContainer}>
-            {token.tags.map((tag, index) => (
-              <span key={index} className={TokenCSS.tag}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

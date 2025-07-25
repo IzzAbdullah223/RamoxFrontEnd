@@ -3,6 +3,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+
 .container {
   padding: 20px;
   color: #fff;
@@ -404,3 +406,10 @@
   border-radius: 20px;
   font-size: 14px;
 }
+
+.TInfo{
+  color: #435177;
+  margin-bottom: 20px;
+}
+
+ 
