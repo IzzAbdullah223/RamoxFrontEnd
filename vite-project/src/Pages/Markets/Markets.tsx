@@ -11,6 +11,7 @@ import { FaDiscord, FaTwitter } from "react-icons/fa";
 import { Line } from 'react-chartjs-2';
 import { useTranslation } from '../../Hooks/useTranslations';
 import { useNavigate } from 'react-router-dom';
+  
  
 import {
   Chart as ChartJS,

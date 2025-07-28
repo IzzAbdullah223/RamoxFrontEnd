@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import LCSS from './LCSS.module.css';
 import { useTranslation } from '../Hooks/useTranslations';
+import icon from '../Icon.jpg'; 
 
 function LeftColumn() {
     const [Verifed, setVerifed] = useState(true);
@@ -19,7 +20,7 @@ function LeftColumn() {
     return (
         <div className={LCSS.LeftColumn} dir={isRTL ? 'rtl' : 'ltr'}>
             <div className={LCSS.LCTop}>
-                <img src="../assets/Coin.svg" alt="RAMOX Logo" />
+                <img src={icon} className={LCSS.icon } alt="RAMOX Logo" />
                 <h2>RAMOX</h2>
             </div>
             <div className={LCSS.Box}>

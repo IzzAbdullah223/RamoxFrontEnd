@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
-import icon from './Icon.jpg'; // Make sure to add your icon.png file in the same directory
+import icon from './Icon.jpg';  
 
 function Login() {
   const [isArabic, setIsArabic] = useState(false);

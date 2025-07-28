@@ -162,6 +162,12 @@
     font-family: sans-serif;
 }
 
+.icon{
+    width: 60px;
+    height: 60px;
+    
+}
+
 /* Dark Mode */
 [data-theme="dark"] .LeftColumn {
     background-color: #1e1e1e;
