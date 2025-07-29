@@ -5,6 +5,7 @@ import Markets from './Pages/Markets/Markets';
 import Watchlist from './Pages/Markets/WatchList/Watchlist';
 import Layout from './LayOut';
 import TokenInfo from './Pages/Markets/TokenInfo/TokenInfo';
+import Chat from './Chat';
 import { LanguageProvider } from './LanguageContext';
 import { DarkModeProvider } from './DarkModeContext';
 import Login from './Login';
@@ -21,7 +22,9 @@ createRoot(document.getElementById('root')!).render(
               <Route index element={<Markets />} />
               <Route path="markets" element={<Markets />} />
               <Route path="watchlist" element={<Watchlist />} />
-              <Route path="token/:tokenId" element={<TokenInfo />} />  
+              <Route path="token/:tokenId" element={<TokenInfo />} />
+               <Route path="Chat" element={<Chat/>} />
+       
             </Route>
           </Routes>
         </BrowserRouter>

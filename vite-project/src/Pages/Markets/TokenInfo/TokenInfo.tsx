@@ -239,7 +239,7 @@ export default function TokenInfo() {
   
         </div>
 
-        <div className={TokenCSS.comparisonChart}>
+        <div className={TokenCSS.comparisonChart}>  HERE
   <h3>Daily fully diluted market cap vs. daily active users in the past 180 days</h3>
   <div className={TokenCSS.chartContainer}>
     <Line 
@@ -348,7 +348,7 @@ export default function TokenInfo() {
       </div>
     </div>
   </div>
-</div>
+</div> HERE
       </div>
  
 

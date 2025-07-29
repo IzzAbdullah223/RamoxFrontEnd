@@ -53,7 +53,7 @@ function LeftColumn() {
                 </Link>
 
                 <Link
-                    to="/bot"
+                    to="/Chat"
                     className={`${LCSS.Market} ${currentPath === '/bot' ? LCSS.Active : ''}`}
                 >
                     <RiRobot2Line />
