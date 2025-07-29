@@ -231,35 +231,126 @@ export default function TokenInfo() {
             }`}>
               {token.quote.USD.percent_change_24h >= 0 ? <GoTriangleUp /> : <GoTriangleDown />}
               {formatPercentage(token.quote.USD.percent_change_24h)}
+              
             </div>
+            
           </div>
-
-          <div className={TokenCSS.timeFilters}>
-            <button 
-              className={timeRange === '24h' ? TokenCSS.active : ''}
-              onClick={() => setTimeRange('24h')}
-            >
-              24h
-            </button>
-            <button 
-              className={timeRange === '7d' ? TokenCSS.active : ''}
-              onClick={() => setTimeRange('7d')}
-            >
-              7d
-            </button>
-            <button 
-              className={timeRange === '30d' ? TokenCSS.active : ''}
-              onClick={() => setTimeRange('30d')}
-            >
-              30d
-            </button>
-          </div>
+            
+  
         </div>
-      </div>
 
-      <div className={TokenCSS.chartContainer}>
-        <Line data={chartData} options={chartOptions} />
+        <div className={TokenCSS.comparisonChart}>
+  <h3>Daily fully diluted market cap vs. daily active users in the past 180 days</h3>
+  <div className={TokenCSS.chartContainer}>
+    <Line 
+      data={{
+        labels: Array.from({length: 180}, (_, i) => {
+          const date = new Date();
+          date.setDate(date.getDate() - (180 - i));
+          return `${date.getDate()} ${date.toLocaleString('default', {month: 'short'})}`;
+        }),
+        datasets: [
+          {
+            label: 'Fully diluted market cap',
+            data: Array.from({length: 180}, () => 5 + Math.random() * 3),
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderWidth: 2,
+            tension: 0.1,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Daily active users',
+            data: Array.from({length: 180}, (_, i) => 30 + (i/180)*90 + Math.random()*10),
+            borderColor: '#ec4899',
+            backgroundColor: 'rgba(236, 72, 153, 0.2)',
+            borderWidth: 2,
+            tension: 0.1,
+            yAxisID: 'y1'
+          }
+        ]
+      }}
+      options={{
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: {
+            type: 'linear',
+            position: 'left',
+            min: 0,
+            max: 8,
+            ticks: {
+              callback: function(value) {
+                if (typeof value === 'number') {
+                  return `$${value.toFixed(1)}B`;
+                }
+                return value;
+              },
+              stepSize: 1
+            },
+            grid: {
+              color: 'rgba(255,255,255,0.1)'
+            }
+          },
+          y1: {
+            type: 'linear',
+            position: 'right',
+            min: 0,
+            max: 120,
+            ticks: {
+              callback: function(value) {
+                if (typeof value === 'number') {
+                  return `${value}k`;
+                }
+                return value;
+              },
+              stepSize: 30
+            },
+            grid: {
+              drawOnChartArea: false
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
+          }
+        }
+      }}
+    />
+  </div>
+  
+  <div className={TokenCSS.filters}>
+    <div className={TokenCSS.timeFilters}>
+      {['24h', '7d', '30d', '90d', '180d', '365d'].map(filter => (
+        <button 
+          key={filter}
+          className={TokenCSS.timeFilter}
+        >
+          {filter}
+        </button>
+      ))}
+    </div>
+  </div>
+  
+  <div className={TokenCSS.growthRates}>
+    <div className={TokenCSS.growthRow}>
+      <span>Fully diluted market cap</span>
+      <div className={TokenCSS.growthValues}>
+        <span className={TokenCSS.negative}>-10.9%</span>
       </div>
+    </div>
+    <div className={TokenCSS.growthRow}>
+      <span>Daily active users</span>
+      <div className={TokenCSS.growthValues}>
+        <span className={TokenCSS.positive}>+93.0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
+ 
 
       <div className={TokenCSS.statsGrid}>
         <div className={TokenCSS.statCard}>

@@ -412,4 +412,83 @@
   margin-bottom: 20px;
 }
 
- 
+
+/* Chart styles ONLY */
+.comparisonChart {
+  width: 100%;
+  margin: 2rem 0;
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  
+}
+
+.comparisonChart h3 {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.chartContainer {
+  height: 300px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.timeFilters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.timeFilter {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.timeFilter:hover {
+  background: var(--bg-tertiary);
+}
+
+.growthRates {
+  display: flex;
+  gap: 2rem;
+}
+
+.growthRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.growthRow span:first-child {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.growthValues {
+  display: flex;
+  gap: 1rem;
+}
+
+.positive {
+  color: var(--positive-color);
+}
+
+.negative {
+  color: var(--negative-color);
+}
+
